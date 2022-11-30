@@ -1,0 +1,19 @@
+brightweb:
+  stan_plugin:
+    gateway_label: "Stan Pay"
+    form:
+      gateway_configuration:
+        environment: "Mode de paiement"
+        live: "Mode Live"
+        test: "Mode Test"
+        live_api_client_id: "Votre API client ID"
+        test_api_client_id: "Votre API client secret du mode Test"
+        live_api_client_secret: "Votre secret de client API"
+        test_api_client_secret: "Votre secret de client API du mode Test"
+        only_for_stanner: "Afficher le paiement avec Stan uniquement aux Stanners"
+        only_for_stanner_tip: "Cette fonctionnalité permet d'afficher le paiement Stan uniquement aux utilisateurs ayant l'application Stan"
+      validator:
+        api_client_id:
+          not_blank: "Votre API client ID doit être renseigné"
+        api_client_secret:
+          not_blank: "Votre secret de client API doit être renseigné"

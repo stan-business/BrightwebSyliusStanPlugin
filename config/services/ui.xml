@@ -1,0 +1,14 @@
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+
+        <defaults public="true" autoconfigure="false" autowire="false" />
+
+        <service id="brightweb.stan_plugin.resolver.payment_method"
+            class="Brightweb\SyliusStanPlugin\Resolver\DisplayStanPaymentMethodResolver"
+            decorates="sylius.payment_methods_resolver"
+            decoration-priority="5">
+            <argument type="service" id=".inner" />
+        </service>
+    </services>
+</container>

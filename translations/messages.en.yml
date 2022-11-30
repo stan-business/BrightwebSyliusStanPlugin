@@ -1,0 +1,19 @@
+brightweb:
+  stan_plugin:
+    gateway_label: "Stan Pay"
+    form:
+      gateway_configuration:
+        environment: "Payment Mode"
+        live: "Live Mode"
+        test: "Test Mode"
+        live_api_client_id: "Your API Client ID"
+        test_api_client_id: "Your Test API Client ID"
+        live_api_client_secret: "Your API Client secret"
+        test_api_client_secret: "Your Test API Client secret"
+        only_for_stanner: "Display Stan Pay method only for Stanners"
+        only_for_stanner_tip: "This option will display Stan Pay method only to customers using the Stan application"
+      validator:
+        api_client_id:
+          not_blank: "Your API Client ID can't be empty"
+        api_client_secret:
+          not_blank: "Your API Scecret can't be empty"

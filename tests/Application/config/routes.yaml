@@ -1,0 +1,6 @@
+acme_sylius_example_shop:
+    resource: "@BrightwebSyliusStanPlugin/config/shop_routing.yml"
+
+acme_sylius_example_admin:
+    resource: "@BrightwebSyliusStanPlugin/config/admin_routing.yml"
+    prefix: /admin

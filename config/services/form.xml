@@ -1,0 +1,13 @@
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+
+        <defaults public="true" autoconfigure="false" autowire="false" />
+
+        <service id="brightweb.stan_plugin.form.type.gateway_configuration" class="Brightweb\SyliusStanPlugin\Form\Type\StanPayGatewayConfigurationType">
+            <tag name="sylius.gateway_configuration_type" type="stan_pay" label="brightweb.stan_plugin.gateway_label" priority="100" />
+            <tag name="form.type" />
+            <argument>https://%router.request_context.host%</argument>
+        </service>
+    </services>
+</container>
