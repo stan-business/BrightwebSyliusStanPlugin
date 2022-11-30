@@ -8,9 +8,10 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
+use Sylius\Bundle\ResourceBundle\DependencyInjection\Extension\AbstractResourceExtension;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
-final class BrightwebSyliusStanExtension extends Extension
+final class BrightwebSyliusStanExtension extends AbstractResourceExtension
 {
     /**
      * @psalm-suppress UnusedVariable
@@ -20,9 +21,9 @@ final class BrightwebSyliusStanExtension extends Extension
         $config = $this->processConfiguration($this->getConfiguration([], $container), $configs);
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
 
-        // $container->setParameter('brightweb.stan_plugin.api_base_url', 'https://api.stan-app.fr/v1');
+        $container->setParameter('brightweb.stan_plugin.api_base_url', 'https://api.stan-app.fr/v1');
 
-        // $this->registerResources('brightweb_sylius_stan', $config['driver'], $config['resources'], $container);
+        $this->registerResources('brightweb_sylius_stan', $config['driver'], $config['resources'], $container);
 
         $loader->load('services.xml');
     }

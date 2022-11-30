@@ -1,0 +1,12 @@
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults public="true"/>
+
+        <service
+            id="Brightweb\SyliusStanPlugin\Provider\StanConnectConfigurationProviderInterface"
+            class="Brightweb\SyliusStanPlugin\Provider\StanConnectConfigurationProvider"
+        >
+            <argument type="service" id="brightweb_sylius_stan.repository.brightweb_stan_connect" />
+        </service>
+    </services>
+</container>

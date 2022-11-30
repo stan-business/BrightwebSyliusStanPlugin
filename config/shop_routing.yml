@@ -1,13 +1,5 @@
-# Delete these routes and define your own shop routes here
-
-acme_sylius_example_static_welcome:
-    path: /static-welcome/{name}
+stan_connect_redirect_uri:
+    path: /stan-connect
     defaults:
-        _controller: Brightweb\SyliusStanPlugin\Controller\GreetingController::staticallyGreetAction
-        name: ~
-
-acme_sylius_example_dynamic_welcome:
-    path: /dynamic-welcome/{name}
-    defaults:
-        _controller: Brightweb\SyliusStanPlugin\Controller\GreetingController::dynamicallyGreetAction
+        _controller: Brightweb\SyliusStanPlugin\Controller\ConnectController::connectUserWithAuthorizationCode
         name: ~

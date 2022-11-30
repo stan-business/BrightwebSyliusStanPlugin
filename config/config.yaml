@@ -1,0 +1,16 @@
+sylius_ui:
+    events:
+        sylius.shop.checkout.address.before_form:
+            blocks:
+                connect_with_stan:
+                    template: '@BrightwebSyliusStanPlugin/Buttons/addressing.html.twig'
+                    priority: 7
+
+monolog:
+    channels: ['brightweb_stan']
+    handlers:
+        paypal:
+            level: debug
+            type: stream
+            path: '%kernel.logs_dir%/brightweb_stan.log'
+            channels: [brightweb_stan]

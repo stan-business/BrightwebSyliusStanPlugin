@@ -1,0 +1,25 @@
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+        <defaults public="true"/>
+
+        <service id="Brightweb\SyliusStanPlugin\Controller\ConnectButtonsController">
+            <argument type="service" id="twig" />
+            <argument type="service" id="sylius.context.channel" />
+            <argument type="service" id="sylius.context.locale" />
+            <argument type="service" id="sylius.context.cart" />
+            <argument type="service" id="Brightweb\SyliusStanPlugin\Api\ConnectUserApiInterface" />
+        </service>
+
+        <service id="Brightweb\SyliusStanPlugin\Controller\ConnectController">
+            <argument type="service" id="monolog.logger.brightweb_stan" />
+            <argument type="service" id="router" />
+            <argument type="service" id="sylius.context.cart" />
+            <argument type="service" id="sylius.factory.address" />
+            <argument type="service" id="sylius.factory.customer" />
+            <argument type="service" id="sm.factory" />
+            <argument type="service" id="sylius.manager.order" />
+            <argument type="service" id="sylius.repository.customer" />
+            <argument type="service" id="Brightweb\SyliusStanPlugin\Api\ConnectUserApiInterface" />
+        </service>
+    </services>
+</container>

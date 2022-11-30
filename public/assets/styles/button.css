@@ -1,0 +1,67 @@
+#stan-easy-connect.stan-button {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	margin: 1em 0;
+    margin-bottom: 3em;
+}
+
+#stan-easy-connect.stan-button a {
+	background-color: black;
+	color: #FFF;
+	border-radius: 3px;
+	max-height: 40px;
+	min-height: 40px;
+	line-height: 20px;
+	padding: 10px 15px;
+}
+#stan-easy-connect.stan-button a:hover {
+	background-color: #01052E;
+	color: #FFF;
+}
+
+#stan-easy-connect.stan-button a svg {
+	vertical-align: top;
+	margin-right: 6px;
+}
+
+#stan-easy-connect .stanconnect-tooltip {
+	position: relative;
+	display: inline-block;
+	padding: 10px;
+}
+
+#stan-easy-connect .stanconnect-tooltip .tooltiptext {
+	visibility: hidden;
+	width: 150px;
+	background-color: #01052E;
+	color: #fff;
+	text-align: center;
+	padding: 5px 0;
+	border-radius: 6px;
+	position: absolute;
+	z-index: 1;
+	bottom: 100%;
+	left: 50%;
+	margin-left: -70px;
+	opacity: 0;
+	transition: opacity 0.3s;
+	font-size: 10pt;
+}
+
+#stan-easy-connect .stanconnect-tooltip .tooltiptext::after {
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: #01052E transparent transparent transparent;
+}
+
+#stan-easy-connect .stanconnect-tooltip:hover .tooltiptext {
+	visibility: visible;
+	opacity: 1;
+}

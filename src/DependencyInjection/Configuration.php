@@ -11,6 +11,11 @@ use Sylius\Component\Resource\Factory\Factory;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
 
+use Brightweb\SyliusStanPlugin\Doctrine\ORM\StanConnectRepository;
+use Brightweb\SyliusStanPlugin\Entity\StanConnectInterface;
+use Brightweb\SyliusStanPlugin\Entity\StanConnect;
+use Brightweb\SyliusStanPlugin\Form\Type\StanConnectType;
+
 final class Configuration implements ConfigurationInterface
 {
     /**
@@ -21,13 +26,13 @@ final class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder('brightweb_sylius_stan_plugin');
         $rootNode = $treeBuilder->getRootNode();
 
-        // $rootNode
-        //     ->addDefaultsIfNotSet()
-        //     ->children()
-        //     ->scalarNode('driver')->defaultValue(SyliusResourceBundle::DRIVER_DOCTRINE_ORM)->end()
-        //     ->end();
+        $rootNode
+            ->addDefaultsIfNotSet()
+            ->children()
+            ->scalarNode('driver')->defaultValue(SyliusResourceBundle::DRIVER_DOCTRINE_ORM)->end()
+            ->end();
 
-        // $this->addResourcesSection($rootNode);
+        $this->addResourcesSection($rootNode);
 
         return $treeBuilder;
     }
@@ -35,7 +40,6 @@ final class Configuration implements ConfigurationInterface
     /**
      * @param ArrayNodeDefinition $node
      */
-    /*
     private function addResourcesSection(ArrayNodeDefinition $node): void
     {
         $node
@@ -43,7 +47,7 @@ final class Configuration implements ConfigurationInterface
                 ->arrayNode('resources')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->arrayNode('brightweb_stan')
+                        ->arrayNode('brightweb_stan_connect')
                             ->addDefaultsIfNotSet()
                             ->children()
                                 ->variableNode('options')->end()
@@ -64,5 +68,5 @@ final class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
         ;
-    }*/
+    }
 }

@@ -5,6 +5,8 @@ imports:
 
     - { resource: "@SyliusShopBundle/Resources/config/app/config.yml" }
 
+    - { resource: "@BrightwebSyliusStanPlugin/config/config.yaml"}
+
     - { resource: "@SyliusApiBundle/Resources/config/app/config.yaml" }
 
 parameters:

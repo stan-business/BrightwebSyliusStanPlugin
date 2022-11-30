@@ -106,7 +106,7 @@ final class StanPayGatewayConfigurationType extends AbstractType
                 /** @var ArrayObject $gatewayOptions */
                 $gatewayOptions = $event->getData();
 
-                $api = new Api([
+                $api = new StanPayClient([
                     'environment' => StanPayClient::STAN_MODE_LIVE,
                     'client_id' => $gatewayOptions['live_api_client_id'],
                     'client_secret' => $gatewayOptions['live_api_secret'],

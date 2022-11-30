@@ -1,0 +1,16 @@
+{{ form_errors(form) }}
+
+<div class="ui">
+    {{ form_row(form.clientId) }}
+    {{ form_row(form.clientSecret) }}
+</div>
+
+<style>
+    .ui.buttons > a{
+        display:none;
+    }
+
+    .ui.buttons .button:first-child{
+        border-radius: .28571429rem;
+    }
+</style>
