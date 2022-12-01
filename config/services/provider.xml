@@ -3,10 +3,10 @@
         <defaults public="true"/>
 
         <service
-            id="Brightweb\SyliusStanPlugin\Provider\StanConnectConfigurationProviderInterface"
-            class="Brightweb\SyliusStanPlugin\Provider\StanConnectConfigurationProvider"
+            id="Brightweb\SyliusStanPlugin\Provider\StanConfigurationProviderInterface"
+            class="Brightweb\SyliusStanPlugin\Provider\StanConfigurationProvider"
         >
-            <argument type="service" id="brightweb_sylius_stan.repository.brightweb_stan_connect" />
+            <argument type="service" id="sylius.repository.payment_method" />
         </service>
     </services>
 </container>

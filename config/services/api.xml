@@ -7,7 +7,7 @@
             class="Brightweb\SyliusStanPlugin\Client\StanConnectClient"
         >
             <argument type="service" id="monolog.logger.brightweb_stan" />
-            <argument type="service" id="Brightweb\SyliusStanPlugin\Provider\StanConnectConfigurationProviderInterface" />
+            <argument type="service" id="Brightweb\SyliusStanPlugin\Provider\StanConfigurationProviderInterface" />
             <argument type="service" id="sylius.context.channel" />
             <argument>%brightweb.stan_plugin.api_base_url%</argument>
         </service>

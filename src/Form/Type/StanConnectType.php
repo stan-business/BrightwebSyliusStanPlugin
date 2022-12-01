@@ -14,20 +14,13 @@ use Stan\ApiException;
 use Stan\Model\ApiSettingsRequestBody;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class StanConnectType extends AbstractType
 {
-    /** @var string */
-    private $baseUrl;
-
-    public function __construct(string $baseUrl)
-    {
-        $this->baseUrl = $baseUrl;
-    }
-
     /**
      * @inheritdoc
      */
@@ -35,39 +28,32 @@ final class StanConnectType extends AbstractType
     {
         $builder
             ->add(
-                'clientId',
-                TextType::class,
+                'enable_stan_connect',
+                CheckboxType::class,
                 [
-                    'label' => 'brightweb.stan_plugin.ui.form.client_id',
-                    'attr' => [
-                        'autocomplete' => 'off'
-                    ],
-                    'constraints' => [
-                        new NotBlank(
-                            [
-                                'message' => 'brightweb.stan_plugin.validator.client_id.not_blank',
-                                'groups' => ['sylius'],
-                            ],
-                        ),
-                    ]
+                    'label' => 'brightweb.stan_plugin.ui.form.enable_stan_connect'
                 ],
             )
             ->add(
-                'clientSecret',
+                'client_id',
                 TextType::class,
                 [
-                    'label' => 'brightweb.stan_plugin.ui.form.client_secret',
+                    'label' => 'brightweb.stan_plugin.ui.form.client_id',
+                    'required' => false,
                     'attr' => [
                         'autocomplete' => 'off'
                     ],
-                    'constraints' => [
-                        new NotBlank(
-                            [
-                                'message' => 'brightweb.stan_plugin.validator.client_secret.not_blank',
-                                'groups' => ['sylius']
-                            ]
-                        )
-                    ]
+                ],
+            )
+            ->add(
+                'client_secret',
+                TextType::class,
+                [
+                    'label' => 'brightweb.stan_plugin.ui.form.client_secret',
+                    'required' => false,
+                    'attr' => [
+                        'autocomplete' => 'off'
+                    ],
                 ]
             )
         ;

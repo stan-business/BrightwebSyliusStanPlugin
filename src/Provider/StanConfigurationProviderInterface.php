@@ -12,11 +12,13 @@ namespace Brightweb\SyliusStanPlugin\Provider;
 
 use Sylius\Component\Core\Model\ChannelInterface;
 
-interface StanConnectConfigurationProviderInterface
+interface StanConfigurationProviderInterface
 {
-    public function getClientId(): string;
+    public function getStanConnectEnabled(ChannelInterface $channel): bool;
 
-    public function getClientSecret(): string;
+    public function getStanConnectClientId(ChannelInterface $channel): string;
+
+    public function getStanConnectClientSecret(ChannelInterface $channel): string;
 
     public function getScope(): string;
 }

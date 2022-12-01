@@ -11,12 +11,12 @@ declare(strict_types=1);
 namespace Brightweb\SyliusStanPlugin\Controller;
 
 use Sylius\Component\Channel\Context\ChannelContextInterface;
-use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Locale\Context\LocaleContextInterface;
 use Sylius\Component\Order\Context\CartContextInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Brightweb\SyliusStanPlugin\Provider\StanConfigurationProviderInterface;
 use Twig\Environment;
 
 use Brightweb\SyliusStanPlugin\Api\ConnectUserApiInterface;
@@ -33,22 +33,30 @@ class ConnectButtonsController
 
     private ConnectUserApiInterface $stanConnectApi;
 
+    private StanConfigurationProviderInterface $stanConfigurationProvider;
+
     public function __construct(
         Environment $twig,
         ChannelContextInterface $channelContext,
         LocaleContextInterface $localeContext,
         CartContextInterface $cartContext,
-        ConnectUserApiInterface $stanConnectApi
+        ConnectUserApiInterface $stanConnectApi,
+        StanConfigurationProviderInterface $stanConfigurationProvider
     ) {
         $this->twig = $twig;
         $this->channelContext = $channelContext;
         $this->localeContext = $localeContext;
         $this->cartContext = $cartContext;
         $this->stanConnectApi = $stanConnectApi;
+        $this->stanConfigurationProvider = $stanConfigurationProvider;
     }
 
     public function renderAddressingButton(Request $request): Response
     {
+        if (false === $this->stanConfigurationProvider->getStanConnectEnabled($this->channelContext->getChannel())) {
+            return new Response('');
+        }
+
         $order = $this->cartContext->getCart();
         $customer = $order->getCustomer();
 

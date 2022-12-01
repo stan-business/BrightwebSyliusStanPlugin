@@ -1,33 +1,28 @@
 brightweb:
     stan_plugin:
         ui:
-            edit_stan_connect: "Configurer Stan Connect"
-            label: "Stan Connect"
             form:
+                edit_stan_connect: "Configurer Stan Connect"
                 client_id: "Votre Stan Connect client ID"
                 client_secret: "Votre Stan Connect client secret"
+                enable_stan_connect: "Activer Stan Connect"
         connect_with_stan: "Se connect avec Stan"
         connect_with_stan_tooltip: "Le checkout en 1 clic nécessite d'avoir un compte Stan"
         form_title: "Easy checkin avec Stan"
-        validator:
-            client_id:
-                not_blank: "Votre client ID doit être renseigné"
-            client_secret:
-                not_blank: "Votre client secret doit être renseigné"
-    gateway_label: "Stan Pay"
-    form:
-      gateway_configuration:
-        environment: "Mode de paiement"
-        live: "Mode Live"
-        test: "Mode Test"
-        live_api_client_id: "Votre API client ID"
-        test_api_client_id: "Votre API client secret du mode Test"
-        live_api_client_secret: "Votre secret de client API"
-        test_api_client_secret: "Votre secret de client API du mode Test"
-        only_for_stanner: "Afficher le paiement avec Stan uniquement aux Stanners"
-        only_for_stanner_tip: "Cette fonctionnalité permet d'afficher le paiement Stan uniquement aux utilisateurs ayant l'application Stan"
-      validator:
-        api_client_id:
-          not_blank: "Votre API client ID doit être renseigné"
-        api_client_secret:
-          not_blank: "Votre secret de client API doit être renseigné"
+        gateway_label: "Stan Pay"
+        form:
+            gateway_configuration:
+                environment: "Mode de paiement"
+                live: "Mode Live"
+                test: "Mode Test"
+                live_api_client_id: "Votre API client ID"
+                test_api_client_id: "Votre API client secret du mode Test"
+                live_api_client_secret: "Votre secret de client API"
+                test_api_client_secret: "Votre secret de client API du mode Test"
+                only_for_stanner: "Afficher le paiement avec Stan uniquement aux Stanners"
+                only_for_stanner_tip: "Cette fonctionnalité permet d'afficher le paiement Stan uniquement aux utilisateurs ayant l'application Stan"
+            validator:
+                api_client_id:
+                    not_blank: "Votre API client ID doit être renseigné"
+                api_client_secret:
+                    not_blank: "Votre secret de client API doit être renseigné"

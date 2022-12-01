@@ -6,6 +6,10 @@ sylius_ui:
                     template: '@BrightwebSyliusStanPlugin/Buttons/addressing.html.twig'
                     priority: 7
 
+twig:
+    form_themes:
+        - '@BrightwebSyliusStanPlugin/Admin/PaymentMethod/Form/stan_connect.html.twig'
+
 monolog:
     channels: ['brightweb_stan']
     handlers:

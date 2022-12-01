@@ -8,6 +8,7 @@
             <argument type="service" id="sylius.context.locale" />
             <argument type="service" id="sylius.context.cart" />
             <argument type="service" id="Brightweb\SyliusStanPlugin\Api\ConnectUserApiInterface" />
+            <argument type="service" id="Brightweb\SyliusStanPlugin\Provider\StanConfigurationProviderInterface" />
         </service>
 
         <service id="Brightweb\SyliusStanPlugin\Controller\ConnectController">

@@ -99,7 +99,17 @@ final class StanPayGatewayConfigurationType extends AbstractType
                 CheckboxType::class,
                 [
                     'label' => 'brightweb.stan_plugin.form.gateway_configuration.only_for_stanner',
+                    'required' => false,
                     'help' => 'brightweb.stan_plugin.form.gateway_configuration.only_for_stanner_tip',
+                ],
+            )
+            ->add(
+                'stan_connect',
+                StanConnectType::class,
+                [
+                    'block_prefix' => 'brightweb_sylius_stan_stan_connect',
+                    'label' => 'brightweb.stan_plugin.ui.form.edit_stan_connect_label',
+                    'required' => false,
                 ],
             )
             ->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event): void {

@@ -13,7 +13,7 @@ namespace Brightweb\SyliusStanPlugin\Client;
 use Psr\Log\LoggerInterface;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 
-use Brightweb\SyliusStanPlugin\Provider\StanConnectConfigurationProviderInterface;
+use Brightweb\SyliusStanPlugin\Provider\StanConfigurationProviderInterface;
 use Stan\Model\User;
 use Stan\Configuration;
 use Stan\Utils\ConnectUtils;
@@ -26,7 +26,7 @@ final class StanConnectClient implements StanConnectClientInterface
 {
     private LoggerInterface $logger;
 
-    private StanConnectConfigurationProviderInterface $stanConnectConfigurationProvider;
+    private StanConfigurationProviderInterface $stanConfigurationProvider;
 
     private ChannelContextInterface $channelContext;
 
@@ -34,20 +34,20 @@ final class StanConnectClient implements StanConnectClientInterface
 
     public function __construct(
         LoggerInterface $logger,
-        StanConnectConfigurationProviderInterface $stanConnectConfigurationProvider,
+        StanConfigurationProviderInterface $stanConfigurationProvider,
         ChannelContextInterface $channelContext,
         string $baseUrl
     ) {
         $this->logger = $logger;
-        $this->stanConnectConfigurationProvider = $stanConnectConfigurationProvider;
+        $this->stanConfigurationProvider = $stanConfigurationProvider;
         $this->channelContext = $channelContext;
         $this->baseUrl = $baseUrl;
     }
 
     public function getAccessToken(string $code, string $redirectUri): string
     {
-        $clientId = $this->stanConnectConfigurationProvider->getClientId();
-        $clientSecret = $this->stanConnectConfigurationProvider->getClientSecret();
+        $clientId = $this->stanConfigurationProvider->getStanConnectClientId($this->channelContext->getChannel());
+        $clientSecret = $this->stanConfigurationProvider->getStanConnectClientSecret($this->channelContext->getChannel());
 
         $accessTokenPayload = new ConnectAccessTokenRequestBody();
         $accessTokenPayload = $accessTokenPayload
@@ -55,7 +55,7 @@ final class StanConnectClient implements StanConnectClientInterface
             ->setClientSecret($clientSecret)
             ->setCode($code)
             ->setGrantType('authorization_code')
-            ->setScope($this->stanConnectConfigurationProvider->getScope())
+            ->setScope($this->stanConfigurationProvider->getScope())
             ->setRedirectUri($redirectUri);
 
         try {
@@ -92,7 +92,7 @@ final class StanConnectClient implements StanConnectClientInterface
 
     public function getConnectUrl(string $redirectUri, string $state): string
     {
-        $clientId = $this->stanConnectConfigurationProvider->getClientId();
+        $clientId = $this->stanConfigurationProvider->getStanConnectClientId($this->channelContext->getChannel());
         $config = $this->getApiConfiguration();
 
         return ConnectUtils::generateAuthorizeRequestLink(
