@@ -20,6 +20,8 @@ use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\LogicException;
 use Payum\Core\Exception\RequestNotSupportedException;
 
+use Stan\Model\Payment;
+
 class GetPaymentAction implements ActionInterface, ApiAwareInterface
 {
     use ApiAwareTrait;
@@ -42,6 +44,7 @@ class GetPaymentAction implements ActionInterface, ApiAwareInterface
             throw new LogicException('The parameter "stan_payment_id" must be set. Have you run PrepareAction?');
         }
 
+        /** @var Payment $payment */
         $payment = $this->api->getPayment($details['stan_payment_id']);
 
         $details->replace([

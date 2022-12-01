@@ -14,7 +14,7 @@ use Stan\Model\User;
 
 interface ConnectUserApiInterface
 {
-    public function getUserWithAuthorizationCode(string $code): User;
+    public function getUserWithAuthorizationCode(string $code): ?User;
 
     public function getConnectUrl(): string;
 

@@ -14,7 +14,7 @@ use Stan\Model\User;
 
 interface StanConnectClientInterface
 {
-    public function getAccessToken(string $code, string $redirectUri): string;
+    public function getAccessToken(string $code, string $redirectUri): ?string;
 
     public function getUser(string $accessToken): User;
 

@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Brightweb\SyliusStanPlugin\Payum\Factory;
 
+use Payum\Core\Exception\LogicException;
 use Brightweb\SyliusStanPlugin\Payum\Action\Api\CreateCustomerAction;
 use Brightweb\SyliusStanPlugin\Payum\Action\Api\GetPaymentAction;
 use Brightweb\SyliusStanPlugin\Payum\Action\Api\PreparePaymentAction;

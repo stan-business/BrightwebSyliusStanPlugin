@@ -30,17 +30,22 @@ final class ConnectUserApi implements ConnectUserApiInterface
         $this->stanConnectClient = $stanConnectClient;
     }
 
-    public function getUserWithAuthorizationCode(string $code): User
+    public function getUserWithAuthorizationCode(string $code): ?User
     {
+        /** @var string|null $accessToken */
         $accessToken = $this
             ->stanConnectClient
             ->getAccessToken($code, $this->getRedirectUri());
 
-        $user = $this
-            ->stanConnectClient
-            ->getUser($accessToken);
+        if (null !== $accessToken) {
+            $user = $this
+                ->stanConnectClient
+                ->getUser($accessToken);
 
-        return $user;
+            return $user;
+        }
+
+        return null;
     }
 
     public function getConnectUrl(): string

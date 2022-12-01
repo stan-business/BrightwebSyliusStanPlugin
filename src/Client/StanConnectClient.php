@@ -44,7 +44,7 @@ final class StanConnectClient implements StanConnectClientInterface
         $this->baseUrl = $baseUrl;
     }
 
-    public function getAccessToken(string $code, string $redirectUri): string
+    public function getAccessToken(string $code, string $redirectUri): ?string
     {
         $clientId = $this->stanConfigurationProvider->getStanConnectClientId($this->channelContext->getChannel());
         $clientSecret = $this->stanConfigurationProvider->getStanConnectClientSecret($this->channelContext->getChannel());
@@ -68,7 +68,7 @@ final class StanConnectClient implements StanConnectClientInterface
         } catch (ApiException $e) {
             $this
                 ->logger
-                ->error(sprintf('getting access token with client ID %s failed (base URL is %s): %s', $clientId, $this->baseUrl, $e))
+                ->error(sprintf('getting access token with client ID %s failed (base URL is %s): %s', $clientId, $this->baseUrl, $e->getMessage()))
             ;
             throw $e;
         }
@@ -84,7 +84,7 @@ final class StanConnectClient implements StanConnectClientInterface
         } catch(ApiException $e) {
             $this
                 ->logger
-                ->error(sprintf('getting user infos with access token %s failed (base URL is %s): $s', $accessToken, $this->baseUrl, $e))
+                ->error(sprintf('getting user infos with access token %s failed (base URL is %s): $s', $accessToken, $this->baseUrl, $e->getMessage()))
             ;
             throw $e;
         }

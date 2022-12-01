@@ -60,6 +60,7 @@ class PreparePaymentAction implements ActionInterface, ApiAwareInterface
             $paymentBody->setCustomerId($details['stan_customer_id']);
         }
 
+        /** @var PreparedPayment $preparedPayment */
         $preparedPayment = $this->api->preparePayment($paymentBody);
 
         $details->replace([
@@ -67,7 +68,7 @@ class PreparePaymentAction implements ActionInterface, ApiAwareInterface
             'payment_url' => $preparedPayment->getRedirectUrl(),
         ]);
 
-        throw new HttpRedirect($details['payment_url']);
+        throw new HttpRedirect((string) $details['payment_url']);
     }
 
     public function supports($request): bool

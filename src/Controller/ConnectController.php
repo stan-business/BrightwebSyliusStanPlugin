@@ -83,22 +83,26 @@ final class ConnectController
         if (null !== $err) {
             $this
                 ->logger
-                ->error(sprintf('connect user with authorization code (redirect URI), requested URL is %s : %s', $request->getUri(), $e))
+                ->error(sprintf('connect user with authorization code (redirect URI), requested URL is %s : %s', $request->getUri(), $err->getMessage()))
             ;
             $this->renderError($request);
             return new RedirectResponse($this->router->generate('sylius_shop_checkout_address'));
         }
 
-        $code = $request->query->get('code');
+        $code = (string) $request->query->get('code');
 
-        if (null === $code) {
+        if (!$code) {
             $this->renderError($request);
             return new RedirectResponse($this->router->generate('sylius_shop_checkout_address'));
         }
 
         try {
-            /** @var Stanuser $user */
             $user = $this->stanConnectApi->getUserWithAuthorizationCode($code);
+
+            if (null === $user) {
+                $this->renderError($request);
+                return new RedirectResponse($this->router->generate('sylius_shop_checkout_address'));
+            }
 
             /** @var CustomerInterface|null $customer */
             $customer = $order->getCustomer();
@@ -168,7 +172,7 @@ final class ConnectController
     {
         $stanAddress = $user->getShippingAddress();
 
-        if (!$stanAddress->getStreetAddress()) {
+        if (null === $stanAddress || !$stanAddress->getStreetAddress()) {
             return null;
         }
 
@@ -185,7 +189,8 @@ final class ConnectController
         return $address;
     }
 
-    private function renderError(Request $request) {
+    private function renderError(Request $request): void
+    {
         /** @var FlashBagInterface $flashBag */
         $flashBag = $request->getSession()->getBag('flashes');
         $flashBag->add('error', 'brightweb.stan_plugin.auth_error');

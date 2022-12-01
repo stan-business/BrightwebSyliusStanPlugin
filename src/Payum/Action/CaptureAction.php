@@ -22,7 +22,7 @@ use Payum\Core\Request\Capture;
 use Payum\Core\Request\Sync;
 use Payum\Core\Security\GenericTokenFactoryAwareInterface;
 use Payum\Core\Security\GenericTokenFactoryAwareTrait;
-use Payum\Core\TokenInterface;
+use Payum\Core\Security\TokenInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 
 class CaptureAction implements ActionInterface, GatewayAwareInterface, GenericTokenFactoryAwareInterface
@@ -61,18 +61,20 @@ class CaptureAction implements ActionInterface, GatewayAwareInterface, GenericTo
             $customer = $order->getCustomer();
             $billingAddress = $order->getBillingAddress();
 
-            $details->replace([
-                'customer_firstname' => $billingAddress->getFirstName(),
-                'customer_lastname' => $billingAddress->getLastName(),
-                'customer_street_address' => $billingAddress->getStreet(),
-                'customer_city' => $billingAddress->getCity(),
-                'customer_postcode' => $billingAddress->getPostcode(),
-                'customer_country_code' => $billingAddress->getCountryCode(),
-                'customer_email' => $customer->getEmail(),
-                'customer_fullname' => $billingAddress->getFullname()
-            ]);
+            if (null !== $customer && null !== $billingAddress) {
+                $details->replace([
+                    'customer_firstname' => $billingAddress->getFirstName(),
+                    'customer_lastname' => $billingAddress->getLastName(),
+                    'customer_street_address' => $billingAddress->getStreet(),
+                    'customer_city' => $billingAddress->getCity(),
+                    'customer_postcode' => $billingAddress->getPostcode(),
+                    'customer_country_code' => $billingAddress->getCountryCode(),
+                    'customer_email' => $customer->getEmail(),
+                    'customer_fullname' => $billingAddress->getFullname()
+                ]);
 
-            $this->gateway->execute(new CreateCustomer($details));
+                $this->gateway->execute(new CreateCustomer($details));
+            }
             $this->gateway->execute(new PreparePayment($details));
         }
 

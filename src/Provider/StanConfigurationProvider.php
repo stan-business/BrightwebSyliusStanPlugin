@@ -55,6 +55,9 @@ final class StanConfigurationProvider implements StanConfigurationProviderInterf
         return 'openid phone email address profile';
     }
 
+    /**
+     * @throws \InvalidArgumentException no Stan Pay method found
+     */
     private function getStanPaymentMethodConfig(ChannelInterface $channel): array
     {
         $methods = $this->paymentMethodRepository->findEnabledForChannel($channel);
