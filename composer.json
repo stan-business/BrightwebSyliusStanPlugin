@@ -1,6 +1,7 @@
 {
     "name": "stan-business/sylius-stan-plugin",
     "type": "sylius",
+    "description": "Plugin Stan to setup the one click checkout payment method with Stan in your Sylius ecommerce website",
     "keywords": [
         "sylius",
         "sylius-plugin",
