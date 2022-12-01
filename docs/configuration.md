@@ -6,7 +6,7 @@
 
 1. Put your API keys in the fields
 
-    ![](configuration/1.stan_pay_conf.png)
+    ![](configuration/2.stan_pay_conf.png)
 
 1. Put your Stan Connect keys in the fields under Stan Connect section
 
