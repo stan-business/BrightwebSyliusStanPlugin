@@ -46,6 +46,12 @@ final class StanConnectConfigurationProvider implements StanConnectConfiguration
     private function getConfiguration(): StanConnect
     {
         $configs = $this->stanConnectConfigRepository->findAll();
+        if (0 === count($configs)) {
+            $stanConnect = new StanConnect();
+            $stanConnect->setClientId('');
+            $stanConnect->setClientSecret('');
+            return $stanConnect;
+        }
         return array_pop($configs);
     }
 }

@@ -13,7 +13,7 @@ namespace Brightweb\SyliusStanPlugin\Client;
 use Psr\Log\LoggerInterface;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
 
-// use Brightweb\SyliusStanPlugin\Provider\StanConnectConfigurationProviderInterface;
+use Brightweb\SyliusStanPlugin\Provider\StanConnectConfigurationProviderInterface;
 use Stan\Model\User;
 use Stan\Configuration;
 use Stan\Utils\ConnectUtils;
@@ -26,7 +26,7 @@ final class StanConnectClient implements StanConnectClientInterface
 {
     private LoggerInterface $logger;
 
-    // private StanConnectConfigurationProviderInterface $stanConnectConfigurationProvider;
+    private StanConnectConfigurationProviderInterface $stanConnectConfigurationProvider;
 
     private ChannelContextInterface $channelContext;
 
@@ -34,12 +34,12 @@ final class StanConnectClient implements StanConnectClientInterface
 
     public function __construct(
         LoggerInterface $logger,
-        // StanConnectConfigurationProviderInterface $stanConnectConfigurationProvider,
+        StanConnectConfigurationProviderInterface $stanConnectConfigurationProvider,
         ChannelContextInterface $channelContext,
         string $baseUrl
     ) {
         $this->logger = $logger;
-        // $this->stanConnectConfigurationProvider = $stanConnectConfigurationProvider;
+        $this->stanConnectConfigurationProvider = $stanConnectConfigurationProvider;
         $this->channelContext = $channelContext;
         $this->baseUrl = $baseUrl;
     }
