@@ -12,7 +12,6 @@ namespace Brightweb\SyliusStanPlugin\Resolver;
 
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Sylius\Component\Payment\Model\PaymentInterface as BasePaymentInterface;
-use Sylius\Component\Payment\Model\PaymentMethodInterface;
 use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
 
 final class DisplayStanPaymentMethodResolver implements PaymentMethodsResolverInterface

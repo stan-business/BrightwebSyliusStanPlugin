@@ -70,7 +70,7 @@ class CaptureAction implements ActionInterface, GatewayAwareInterface, GenericTo
                     'customer_postcode' => $billingAddress->getPostcode(),
                     'customer_country_code' => $billingAddress->getCountryCode(),
                     'customer_email' => $customer->getEmail(),
-                    'customer_fullname' => $billingAddress->getFullname()
+                    'customer_fullname' => $billingAddress->getFullName(),
                 ]);
 
                 $this->gateway->execute(new CreateCustomer($details));

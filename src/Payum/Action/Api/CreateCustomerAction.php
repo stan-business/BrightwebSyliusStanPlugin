@@ -18,10 +18,9 @@ use Payum\Core\ApiAwareInterface;
 use Payum\Core\ApiAwareTrait;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
-
 use Stan\Model\Address;
-use Stan\Model\CustomerRequestBody;
 use Stan\Model\Customer;
+use Stan\Model\CustomerRequestBody;
 
 class CreateCustomerAction implements ActionInterface, ApiAwareInterface
 {

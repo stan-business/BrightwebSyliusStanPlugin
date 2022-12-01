@@ -32,7 +32,7 @@ class SyncAction implements ActionInterface, GatewayAwareInterface
 
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
-        if ($details['stan_payment_id']) {
+        if (isset($details['stan_payment_id'])) {
             $this->gateway->execute(new GetPayment($details));
         }
     }

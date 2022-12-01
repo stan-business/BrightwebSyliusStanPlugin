@@ -10,14 +10,10 @@ declare(strict_types=1);
 
 namespace Brightweb\SyliusStanPlugin\Form\Type;
 
-use Stan\ApiException;
-use Stan\Model\ApiSettingsRequestBody;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class StanConnectType extends AbstractType
 {
@@ -31,7 +27,7 @@ final class StanConnectType extends AbstractType
                 'enable_stan_connect',
                 CheckboxType::class,
                 [
-                    'label' => 'brightweb.stan_plugin.ui.form.enable_stan_connect'
+                    'label' => 'brightweb.stan_plugin.ui.form.enable_stan_connect',
                 ],
             )
             ->add(
@@ -41,7 +37,7 @@ final class StanConnectType extends AbstractType
                     'label' => 'brightweb.stan_plugin.ui.form.client_id',
                     'required' => false,
                     'attr' => [
-                        'autocomplete' => 'off'
+                        'autocomplete' => 'off',
                     ],
                 ],
             )
@@ -52,15 +48,15 @@ final class StanConnectType extends AbstractType
                     'label' => 'brightweb.stan_plugin.ui.form.client_secret',
                     'required' => false,
                     'attr' => [
-                        'autocomplete' => 'off'
+                        'autocomplete' => 'off',
                     ],
-                ]
+                ],
             )
         ;
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function getBlockPrefix(): string
     {

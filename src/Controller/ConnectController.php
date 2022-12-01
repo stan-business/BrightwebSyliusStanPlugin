@@ -10,31 +10,27 @@ declare(strict_types=1);
 
 namespace Brightweb\SyliusStanPlugin\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Sylius\Component\Core\Factory\AddressFactoryInterface;
-use Sylius\Component\Resource\Factory\FactoryInterface;
-use SM\Factory\FactoryInterface as StateMachineFactoryInterface;
-use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
-use Sylius\Component\Core\OrderCheckoutTransitions;
-use Sylius\Component\Order\Context\CartContextInterface;
-use Doctrine\Persistence\ObjectManager;
-use Sylius\Component\Core\Model\CustomerInterface;
-use Sylius\Component\Core\Model\AddressInterface;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-use Psr\Log\LoggerInterface;
-
 use Brightweb\SyliusStanPlugin\Api\ConnectUserApiInterface;
-
-use Stan\Model\User as StanUser;
-use Stan\Model\Address as StanUserAddress;
+use Doctrine\Persistence\ObjectManager;
+use Psr\Log\LoggerInterface;
+use SM\Factory\FactoryInterface as StateMachineFactoryInterface;
 use Stan\ApiException;
+use Stan\Model\User as StanUser;
+use Sylius\Component\Core\Factory\AddressFactoryInterface;
+use Sylius\Component\Core\Model\AddressInterface;
+use Sylius\Component\Core\Model\CustomerInterface;
+use Sylius\Component\Core\OrderCheckoutTransitions;
+use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
+use Sylius\Component\Order\Context\CartContextInterface;
+use Sylius\Component\Resource\Factory\FactoryInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class ConnectController
 {
-
     private LoggerInterface $logger;
 
     private UrlGeneratorInterface $router;
@@ -62,7 +58,7 @@ final class ConnectController
         StateMachineFactoryInterface $stateMachineFactory,
         ObjectManager $orderManager,
         CustomerRepositoryInterface $customerRepository,
-        ConnectUserApiInterface $stanConnectApi
+        ConnectUserApiInterface $stanConnectApi,
     ) {
         $this->logger = $logger;
         $this->router = $router;
@@ -86,6 +82,7 @@ final class ConnectController
                 ->error(sprintf('connect user with authorization code (redirect URI), requested URL is %s : %s', $request->getUri(), $err->getMessage()))
             ;
             $this->renderError($request);
+
             return new RedirectResponse($this->router->generate('sylius_shop_checkout_address'));
         }
 
@@ -93,6 +90,7 @@ final class ConnectController
 
         if (!$code) {
             $this->renderError($request);
+
             return new RedirectResponse($this->router->generate('sylius_shop_checkout_address'));
         }
 
@@ -101,6 +99,7 @@ final class ConnectController
 
             if (null === $user) {
                 $this->renderError($request);
+
                 return new RedirectResponse($this->router->generate('sylius_shop_checkout_address'));
             }
 
@@ -144,9 +143,10 @@ final class ConnectController
             return $redirect;
         } catch(ApiException $e) {
             $this->renderError($request);
-            return new RedirectResponse($this->router->generate('sylius_shop_checkout_address', array(
-                'stan_connect_error' => 'server_error'
-            )));
+
+            return new RedirectResponse($this->router->generate('sylius_shop_checkout_address', [
+                'stan_connect_error' => 'server_error',
+            ]));
         }
     }
 

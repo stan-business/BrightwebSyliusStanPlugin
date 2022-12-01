@@ -10,17 +10,15 @@ declare(strict_types=1);
 
 namespace Brightweb\SyliusStanPlugin\Client;
 
-use Psr\Log\LoggerInterface;
-use Sylius\Component\Channel\Context\ChannelContextInterface;
-
 use Brightweb\SyliusStanPlugin\Provider\StanConfigurationProviderInterface;
-use Stan\Model\User;
-use Stan\Configuration;
-use Stan\Utils\ConnectUtils;
+use Psr\Log\LoggerInterface;
 use Stan\Api\StanClient as Api;
-use Stan\Model\ConnectAccessTokenRequestBody;
-
 use Stan\ApiException;
+use Stan\Configuration;
+use Stan\Model\ConnectAccessTokenRequestBody;
+use Stan\Model\User;
+use Stan\Utils\ConnectUtils;
+use Sylius\Component\Channel\Context\ChannelContextInterface;
 
 final class StanConnectClient implements StanConnectClientInterface
 {
@@ -36,7 +34,7 @@ final class StanConnectClient implements StanConnectClientInterface
         LoggerInterface $logger,
         StanConfigurationProviderInterface $stanConfigurationProvider,
         ChannelContextInterface $channelContext,
-        string $baseUrl
+        string $baseUrl,
     ) {
         $this->logger = $logger;
         $this->stanConfigurationProvider = $stanConfigurationProvider;
@@ -56,7 +54,8 @@ final class StanConnectClient implements StanConnectClientInterface
             ->setCode($code)
             ->setGrantType('authorization_code')
             ->setScope($this->stanConfigurationProvider->getScope())
-            ->setRedirectUri($redirectUri);
+            ->setRedirectUri($redirectUri)
+        ;
 
         try {
             $client = $this->getApiClient();
@@ -64,12 +63,14 @@ final class StanConnectClient implements StanConnectClientInterface
                 ->connectApi
                 ->createConnectAccessToken($accessTokenPayload)
             ;
+
             return $accessTokenRes->getAccessToken();
         } catch (ApiException $e) {
             $this
                 ->logger
                 ->error(sprintf('getting access token with client ID %s failed (base URL is %s): %s', $clientId, $this->baseUrl, $e->getMessage()))
             ;
+
             throw $e;
         }
     }
@@ -80,12 +81,14 @@ final class StanConnectClient implements StanConnectClientInterface
 
         try {
             $user = $client->userApi->getUser();
+
             return $user;
         } catch(ApiException $e) {
             $this
                 ->logger
-                ->error(sprintf('getting user infos with access token %s failed (base URL is %s): $s', $accessToken, $this->baseUrl, $e->getMessage()))
+                ->error(sprintf('getting user infos with access token %s failed (base URL is %s): %s', $accessToken, $this->baseUrl, $e->getMessage()))
             ;
+
             throw $e;
         }
     }
@@ -100,7 +103,7 @@ final class StanConnectClient implements StanConnectClientInterface
             $redirectUri,
             $state,
             [ConnectUtils::ScopePhone, ConnectUtils::ScopeEmail, ConnectUtils::ScopeAddress, ConnectUtils::ScopeProfile],
-            $config
+            $config,
         );
     }
 

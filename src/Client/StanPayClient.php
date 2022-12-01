@@ -10,19 +10,14 @@ declare(strict_types=1);
 
 namespace Brightweb\SyliusStanPlugin\Client;
 
-use Psr\Log\LoggerInterface;
-use Sylius\Component\Channel\Context\ChannelContextInterface;
-
-use Stan\Configuration;
 use Stan\Api\StanClient as Api;
+use Stan\Configuration;
 use Stan\Model\ApiSettingsRequestBody;
 use Stan\Model\Customer;
 use Stan\Model\CustomerRequestBody;
 use Stan\Model\Payment;
 use Stan\Model\PaymentRequestBody;
 use Stan\Model\PreparedPayment;
-
-use Stan\ApiException;
 
 final class StanPayClient implements StanPayClientInterface
 {
@@ -49,7 +44,8 @@ final class StanPayClient implements StanPayClientInterface
 
     private string $baseUrl;
 
-    public function __construct(array $options, string $baseUrl = self::BASE_API_URL) {
+    public function __construct(array $options, string $baseUrl = self::BASE_API_URL)
+    {
         $this->options = $options;
         $this->baseUrl = $baseUrl;
     }
@@ -57,6 +53,7 @@ final class StanPayClient implements StanPayClientInterface
     public function preparePayment(PaymentRequestBody $paymentBody): PreparedPayment
     {
         $apiClient = $this->getApiClient();
+
         return $apiClient->paymentApi->create($paymentBody);
     }
 

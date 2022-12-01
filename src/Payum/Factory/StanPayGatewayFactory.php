@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Brightweb\SyliusStanPlugin\Payum\Factory;
 
-use Payum\Core\Exception\LogicException;
+use Brightweb\SyliusStanPlugin\Client\StanPayClient;
 use Brightweb\SyliusStanPlugin\Payum\Action\Api\CreateCustomerAction;
 use Brightweb\SyliusStanPlugin\Payum\Action\Api\GetPaymentAction;
 use Brightweb\SyliusStanPlugin\Payum\Action\Api\PreparePaymentAction;
@@ -20,16 +20,13 @@ use Brightweb\SyliusStanPlugin\Payum\Action\NotifyAction;
 use Brightweb\SyliusStanPlugin\Payum\Action\NotifyNullAction;
 use Brightweb\SyliusStanPlugin\Payum\Action\StatusAction;
 use Brightweb\SyliusStanPlugin\Payum\Action\SyncAction;
-use Brightweb\SyliusStanPlugin\Client\StanPayClient;
-
 use Payum\Core\Bridge\Spl\ArrayObject;
+use Payum\Core\Exception\LogicException;
 use Payum\Core\GatewayFactory;
-
 use Stan\Configuration as StanConfiguration;
 
 class StanPayGatewayFactory extends GatewayFactory
 {
-
     protected function populateConfig(ArrayObject $config): void
     {
         if (false === class_exists(StanConfiguration::class)) {

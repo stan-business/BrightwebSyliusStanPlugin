@@ -19,7 +19,6 @@ use Payum\Core\ApiAwareTrait;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\LogicException;
 use Payum\Core\Exception\RequestNotSupportedException;
-
 use Stan\Model\Payment;
 
 class GetPaymentAction implements ActionInterface, ApiAwareInterface

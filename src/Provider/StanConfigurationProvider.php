@@ -10,12 +10,11 @@ declare(strict_types=1);
 
 namespace Brightweb\SyliusStanPlugin\Provider;
 
+use Sylius\Bundle\PayumBundle\Model\GatewayConfigInterface;
 use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
 use Webmozart\Assert\Assert;
-
-use Brightweb\SyliusStanPlugin\Entity\StanConnect;
 
 final class StanConfigurationProvider implements StanConfigurationProviderInterface
 {
@@ -31,6 +30,7 @@ final class StanConfigurationProvider implements StanConfigurationProviderInterf
         $config = $this->getStanPaymentMethodConfig($channel);
         Assert::keyExists($config, 'stan_connect');
         Assert::keyExists($config['stan_connect'], 'enable_stan_connect');
+
         return (bool) $config['stan_connect']['enable_stan_connect'];
     }
 
@@ -39,6 +39,7 @@ final class StanConfigurationProvider implements StanConfigurationProviderInterf
         $config = $this->getStanPaymentMethodConfig($channel);
         Assert::keyExists($config, 'stan_connect');
         Assert::keyExists($config['stan_connect'], 'client_id');
+
         return (string) $config['stan_connect']['client_id'];
     }
 
@@ -47,6 +48,7 @@ final class StanConfigurationProvider implements StanConfigurationProviderInterf
         $config = $this->getStanPaymentMethodConfig($channel);
         Assert::keyExists($config, 'stan_connect');
         Assert::keyExists($config['stan_connect'], 'client_secret');
+
         return (string) $config['stan_connect']['client_secret'];
     }
 

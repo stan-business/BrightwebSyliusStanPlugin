@@ -12,10 +12,10 @@ namespace Brightweb\SyliusStanPlugin\Client;
 
 use Stan\Model\ApiSettingsRequestBody;
 use Stan\Model\Customer;
-use Stan\Model\Payment;
 use Stan\Model\CustomerRequestBody;
-use Stan\Model\PreparedPayment;
+use Stan\Model\Payment;
 use Stan\Model\PaymentRequestBody;
+use Stan\Model\PreparedPayment;
 
 interface StanPayClientInterface
 {
