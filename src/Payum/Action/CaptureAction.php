@@ -58,7 +58,21 @@ class CaptureAction implements ActionInterface, GatewayAwareInterface, GenericTo
             $details['order_id'] = $order->getNumber();
             $details['int_amount'] = $order->getTotal();
 
-            $this->gateway->execute(new CreateCustomer($request->getFirstModel()));
+            $customer = $order->getCustomer();
+            $billingAddress = $order->getBillingAddress();
+
+            $details->replace([
+                'customer_firstname' => $billingAddress->getFirstName(),
+                'customer_lastname' => $billingAddress->getLastName(),
+                'customer_street_address' => $billingAddress->getStreet(),
+                'customer_city' => $billingAddress->getCity(),
+                'customer_postcode' => $billingAddress->getPostcode(),
+                'customer_country_code' => $billingAddress->getCountryCode(),
+                'customer_email' => $customer->getEmail(),
+                'customer_fullname' => $billingAddress->getFullname()
+            ]);
+
+            $this->gateway->execute(new CreateCustomer($details));
             $this->gateway->execute(new PreparePayment($details));
         }
 

@@ -8,6 +8,7 @@
             <tag name="sylius.gateway_configuration_type" type="stan_pay" label="brightweb.stan_plugin.gateway_label" priority="100" />
             <tag name="form.type" />
             <argument>https://%router.request_context.host%</argument>
+            <argument>%brightweb.stan_plugin.api_base_url%</argument>
         </service>
     </services>
 </container>

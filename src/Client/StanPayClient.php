@@ -26,8 +26,8 @@ use Stan\ApiException;
 
 final class StanPayClient implements StanPayClientInterface
 {
-
-    public const STAN_API_URL = 'https://api-staging.stan-app.fr/v1'; // TODO get from env
+    // TODO must be taken from brightweb.stan_plugin.api_base_url
+    public const BASE_API_URL = 'https://api-staging.stan-app.fr/v1';
 
     public const STAN_MODE_TEST = 'TEST';
 
@@ -47,8 +47,11 @@ final class StanPayClient implements StanPayClientInterface
 
     public array $options;
 
-    public function __construct(array $options) {
+    private string $baseUrl;
+
+    public function __construct(array $options, string $baseUrl = self::BASE_API_URL) {
         $this->options = $options;
+        $this->baseUrl = $baseUrl;
     }
 
     public function preparePayment(PaymentRequestBody $paymentBody): PreparedPayment
@@ -93,7 +96,7 @@ final class StanPayClient implements StanPayClientInterface
 
         $apiConfig = new Configuration();
         $apiConfig
-            ->setHost(self::STAN_API_URL)
+            ->setHost($this->baseUrl)
             ->setClientId($confApiClientId)
             ->setClientSecret($confApiClientSecret)
         ;

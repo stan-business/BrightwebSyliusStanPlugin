@@ -24,10 +24,17 @@ use Brightweb\SyliusStanPlugin\Client\StanPayClient;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\GatewayFactory;
 
+use Stan\Configuration as StanConfiguration;
+
 class StanPayGatewayFactory extends GatewayFactory
 {
+
     protected function populateConfig(ArrayObject $config): void
     {
+        if (false === class_exists(StanConfiguration::class)) {
+            throw new LogicException('You must install "stan-business/stan-php" library.');
+        }
+
         $config->defaults([
             'payum.factory_name' => 'stan_pay',
             'payum.factory_title' => 'Stan Pay',
@@ -38,8 +45,8 @@ class StanPayGatewayFactory extends GatewayFactory
             'payum.action.sync' => new SyncAction(),
             'payum.action.convert_payment' => new ConvertPaymentAction(),
 
-            'payum.action.api.create_transaction' => new PreparePaymentAction(),
-            'payum.action.api.get_transaction_data' => new GetPaymentAction(),
+            'payum.action.api.prepare_payment' => new PreparePaymentAction(),
+            'payum.action.api.get_payment' => new GetPaymentAction(),
             'payum.action.api.create_customer' => new CreateCustomerAction(),
         ]);
 

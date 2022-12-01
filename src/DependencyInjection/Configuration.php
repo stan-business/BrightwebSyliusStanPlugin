@@ -6,15 +6,6 @@ namespace Brightweb\SyliusStanPlugin\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
-use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
-use Sylius\Component\Resource\Factory\Factory;
-use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
-use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
-
-use Brightweb\SyliusStanPlugin\Doctrine\ORM\StanConnectRepository;
-use Brightweb\SyliusStanPlugin\Entity\StanConnectInterface;
-use Brightweb\SyliusStanPlugin\Entity\StanConnect;
-use Brightweb\SyliusStanPlugin\Form\Type\StanConnectType;
 
 final class Configuration implements ConfigurationInterface
 {
@@ -26,47 +17,6 @@ final class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder('brightweb_sylius_stan_plugin');
         $rootNode = $treeBuilder->getRootNode();
 
-        $rootNode
-            ->addDefaultsIfNotSet()
-            ->children()
-            ->scalarNode('driver')->defaultValue(SyliusResourceBundle::DRIVER_DOCTRINE_ORM)->end()
-            ->end();
-
-        $this->addResourcesSection($rootNode);
-
         return $treeBuilder;
-    }
-
-    /**
-     * @param ArrayNodeDefinition $node
-     */
-    private function addResourcesSection(ArrayNodeDefinition $node): void
-    {
-        $node
-            ->children()
-                ->arrayNode('resources')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->arrayNode('brightweb_stan_connect')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->variableNode('options')->end()
-                                ->arrayNode('classes')
-                                    ->addDefaultsIfNotSet()
-                                    ->children()
-                                        ->scalarNode('model')->defaultValue(StanConnect::class)->cannotBeEmpty()->end()
-                                        ->scalarNode('interface')->defaultValue(StanConnectInterface::class)->cannotBeEmpty()->end()
-                                        ->scalarNode('controller')->defaultValue(ResourceController::class)->cannotBeEmpty()->end()
-                                        ->scalarNode('repository')->defaultValue(StanConnectRepository::class)->cannotBeEmpty()->end()
-                                        ->scalarNode('factory')->defaultValue(Factory::class)->end()
-                                        ->scalarNode('form')->defaultValue(StanConnectType::class)->cannotBeEmpty()->end()
-                                    ->end()
-                                ->end()
-                            ->end()
-                        ->end()
-                    ->end()
-                ->end()
-            ->end()
-        ;
     }
 }

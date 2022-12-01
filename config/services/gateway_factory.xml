@@ -8,6 +8,5 @@
             <argument>Brightweb\SyliusStanPlugin\Payum\Factory\StanPayGatewayFactory</argument>
             <tag name="payum.gateway_factory_builder" factory="stan_pay"/>
         </service>
-
     </services>
 </container>

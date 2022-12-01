@@ -25,12 +25,14 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class StanPayGatewayConfigurationType extends AbstractType
 {
-    /** @var string */
-    private $baseUrl;
+    private string $baseUrl;
 
-    public function __construct(string $baseUrl)
+    private string $baseApiUrl;
+
+    public function __construct(string $baseUrl, string $baseApiUrl)
     {
         $this->baseUrl = $baseUrl;
+        $this->baseApiUrl = $baseApiUrl;
     }
 
     /**
@@ -120,7 +122,7 @@ final class StanPayGatewayConfigurationType extends AbstractType
                     'environment' => StanPayClient::STAN_MODE_LIVE,
                     'client_id' => $gatewayOptions['live_api_client_id'],
                     'client_secret' => $gatewayOptions['live_api_secret'],
-                ]);
+                ], $this->baseApiUrl);
 
                 $apiSettings = new ApiSettingsRequestBody();
                 $apiSettings->setPaymentWebhookUrl("{$this->baseUrl}/payment/notify/unsafe/stan_pay");

@@ -31,7 +31,7 @@ class CreateCustomerAction implements ActionInterface, ApiAwareInterface
     }
 
     /**
-     * @param mixed $request
+     * @param CreateCustomer $request
      */
     public function execute($request): void
     {
@@ -43,26 +43,22 @@ class CreateCustomerAction implements ActionInterface, ApiAwareInterface
 
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
-        $order = $request->getFirstModel()->getOrder();
-        $customer = $order->getCustomer();
-        $billingAddress = $order->getBillingAddress();
-
         $customerBody = new CustomerRequestBody();
 
         $customerAddress = new Address();
         $customerAddress = $customerAddress
-            ->setFirstname($billingAddress->getFirstName())
-            ->setLastname($billingAddress->getLastName())
-            ->setStreetAddress($billingAddress->getStreet())
+            ->setFirstname($details['customer_firstname'])
+            ->setLastname($details['customer_lastname'])
+            ->setStreetAddress($details['customer_street_address'])
             // ->setStreetAddressLine2() TODO get line2 from shipping address
-            ->setLocality($billingAddress->getCity())
-            ->setZipCode($billingAddress->getPostcode())
-            ->setCountry($billingAddress->getCountryCode())
+            ->setLocality($details['customer_city'])
+            ->setZipCode($details['customer_postcode'])
+            ->setCountry($details['customer_country_code'])
         ;
 
         $customerBody = $customerBody
-            ->setEmail($customer->getEmail())
-            ->setName($billingAddress->getFullname())
+            ->setEmail($details['customer_email'])
+            ->setName($details['customer_fullname'])
             ->setAddress($customerAddress)
         ;
 
