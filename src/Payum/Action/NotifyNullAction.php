@@ -35,7 +35,6 @@ class NotifyNullAction implements ActionInterface, GatewayAwareInterface
 
         $this->gateway->execute($httpRequest = new GetHttpRequest());
 
-        // TODO handle the case when state is missing
         /** @var string $state */
         $state = $httpRequest->query['state'];
         if (empty($state)) {
