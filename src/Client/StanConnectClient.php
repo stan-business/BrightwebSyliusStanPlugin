@@ -106,6 +106,8 @@ final class StanConnectClient implements StanConnectClientInterface
 
     private function getApiClient(?string $accessToken = null): Api
     {
+        $apiConfig = $this->getApiConfiguration();
+
         if (null !== $accessToken) {
             $apiConfig->setAccessToken($accessToken);
         }
