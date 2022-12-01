@@ -13,7 +13,7 @@ twig:
 monolog:
     channels: ['brightweb_stan']
     handlers:
-        paypal:
+        brightweb_stan:
             level: debug
             type: stream
             path: '%kernel.logs_dir%/brightweb_stan.log'
