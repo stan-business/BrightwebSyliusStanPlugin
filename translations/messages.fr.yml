@@ -1,5 +1,19 @@
 brightweb:
-  stan_plugin:
+    stan_plugin:
+        ui:
+            edit_stan_connect: "Configurer Stan Connect"
+            label: "Stan Connect"
+            form:
+                client_id: "Votre Stan Connect client ID"
+                client_secret: "Votre Stan Connect client secret"
+        connect_with_stan: "Se connect avec Stan"
+        connect_with_stan_tooltip: "Le checkout en 1 clic nécessite d'avoir un compte Stan"
+        form_title: "Easy checkin avec Stan"
+        validator:
+            client_id:
+                not_blank: "Votre client ID doit être renseigné"
+            client_secret:
+                not_blank: "Votre client secret doit être renseigné"
     gateway_label: "Stan Pay"
     form:
       gateway_configuration:

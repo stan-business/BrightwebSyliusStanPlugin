@@ -1,0 +1,4 @@
+brightweb:
+    stan_plugin:
+        auth_error: "Your authentication failed, please reach the support!"
+        need_address_info: "Stan filled you information but your delivery address is needed"

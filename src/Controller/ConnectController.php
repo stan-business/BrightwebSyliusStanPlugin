@@ -124,7 +124,7 @@ final class ConnectController
                 if (null === $address) {
                     /** @var FlashBagInterface $flashBag */
                     $flashBag = $request->getSession()->getBag('flashes');
-                    $flashBag->add('info', 'brightweb.stan_connect.need_address_info');
+                    $flashBag->add('info', 'brightweb.stan_plugin.need_address_info');
 
                     $redirect = new RedirectResponse($this->router->generate('sylius_shop_checkout_address'));
                 } else {
@@ -188,6 +188,6 @@ final class ConnectController
     private function renderError(Request $request) {
         /** @var FlashBagInterface $flashBag */
         $flashBag = $request->getSession()->getBag('flashes');
-        $flashBag->add('error', 'brightweb.stan_connect.auth_error');
+        $flashBag->add('error', 'brightweb.stan_plugin.auth_error');
     }
 }

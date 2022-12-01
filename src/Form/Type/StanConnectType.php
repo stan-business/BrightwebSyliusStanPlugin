@@ -38,14 +38,14 @@ final class StanConnectType extends AbstractType
                 'clientId',
                 TextType::class,
                 [
-                    'label' => 'brightweb.stan_connect.ui.form.client_id',
+                    'label' => 'brightweb.stan_plugin.ui.form.client_id',
                     'attr' => [
                         'autocomplete' => 'off'
                     ],
                     'constraints' => [
                         new NotBlank(
                             [
-                                'message' => 'brightweb.stan_connect.validator.client_id.not_blank',
+                                'message' => 'brightweb.stan_plugin.validator.client_id.not_blank',
                                 'groups' => ['sylius'],
                             ],
                         ),
@@ -56,14 +56,14 @@ final class StanConnectType extends AbstractType
                 'clientSecret',
                 TextType::class,
                 [
-                    'label' => 'brightweb.stan_connect.ui.form.client_secret',
+                    'label' => 'brightweb.stan_plugin.ui.form.client_secret',
                     'attr' => [
                         'autocomplete' => 'off'
                     ],
                     'constraints' => [
                         new NotBlank(
                             [
-                                'message' => 'brightweb.stan_connect.validator.client_secret.not_blank',
+                                'message' => 'brightweb.stan_plugin.validator.client_secret.not_blank',
                                 'groups' => ['sylius']
                             ]
                         )

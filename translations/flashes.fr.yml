@@ -1,0 +1,4 @@
+brightweb:
+    stan_plugin:
+        auth_error: "Votre authentification a échoué, merci de contacter le support"
+        need_address_info: "Stan a rempli vos informations pour vous, cependant vous devez renseigner votre adresse pour continuer"
