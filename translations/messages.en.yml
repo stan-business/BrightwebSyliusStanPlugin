@@ -6,23 +6,23 @@ brightweb:
                 client_id: "Your Stan Connect client ID"
                 client_secret: "Your Stan Connect client secret"
                 enable_stan_connect: "Enable Stan Connect"
+                api_error: "API request failure, please check if your Stan Pay API keys are valid"
+                gateway_configuration:
+                    environment: "Payment Mode"
+                    live: "Live Mode"
+                    test: "Test Mode"
+                    live_api_client_id: "Your API Client ID"
+                    test_api_client_id: "Your Test API Client ID"
+                    live_api_client_secret: "Your API Client secret"
+                    test_api_client_secret: "Your Test API Client secret"
+                    only_for_stanner: "Display Stan Pay method only for Stanners"
+                    only_for_stanner_tip: "This option will display Stan Pay method only to customers using the Stan application"
+                validator:
+                    api_client_id:
+                        not_blank: "Your API Client ID can't be empty"
+                    api_client_secret:
+                        not_blank: "Your API Scecret can't be empty"
         connect_with_stan: "Login with Stan"
         connect_with_stan_tooltip: "One click checkout with Stan requires to have a Stan account"
         form_title: "Easy checkin with Stan"
         gateway_label: "Stan Pay"
-        form:
-            gateway_configuration:
-                environment: "Payment Mode"
-                live: "Live Mode"
-                test: "Test Mode"
-                live_api_client_id: "Your API Client ID"
-                test_api_client_id: "Your Test API Client ID"
-                live_api_client_secret: "Your API Client secret"
-                test_api_client_secret: "Your Test API Client secret"
-                only_for_stanner: "Display Stan Pay method only for Stanners"
-                only_for_stanner_tip: "This option will display Stan Pay method only to customers using the Stan application"
-            validator:
-                api_client_id:
-                    not_blank: "Your API Client ID can't be empty"
-                api_client_secret:
-                    not_blank: "Your API Scecret can't be empty"

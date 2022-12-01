@@ -21,6 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class StanPayGatewayConfigurationType extends AbstractType
@@ -45,10 +46,10 @@ final class StanPayGatewayConfigurationType extends AbstractType
                 'environment',
                 ChoiceType::class,
                 [
-                    'label' => 'brightweb.stan_plugin.form.gateway_configuration.environment',
+                    'label' => 'brightweb.stan_plugin.ui.form.gateway_configuration.environment',
                     'choices' => [
-                        'brightweb.stan_plugin.form.gateway_configuration.live' => StanPayClient::STAN_MODE_LIVE,
-                        'brightweb.stan_plugin.form.gateway_configuration.test' => StanPayClient::STAN_MODE_TEST,
+                        'brightweb.stan_plugin.ui.form.gateway_configuration.live' => StanPayClient::STAN_MODE_LIVE,
+                        'brightweb.stan_plugin.ui.form.gateway_configuration.test' => StanPayClient::STAN_MODE_TEST,
                     ],
                 ],
             )
@@ -56,11 +57,11 @@ final class StanPayGatewayConfigurationType extends AbstractType
                 'live_api_client_id',
                 TextType::class,
                 [
-                    'label' => 'brightweb.stan_plugin.form.gateway_configuration.live_api_client_id',
+                    'label' => 'brightweb.stan_plugin.ui.form.gateway_configuration.live_api_client_id',
                     'constraints' => [
                         new NotBlank(
                             [
-                                'message' => 'brightweb.stan_plugin.form.validator.api_client_id.not_blank',
+                                'message' => 'brightweb.stan_plugin.ui.form.validator.api_client_id.not_blank',
                                 'groups' => ['sylius'],
                             ],
                         ),
@@ -71,18 +72,18 @@ final class StanPayGatewayConfigurationType extends AbstractType
                 'test_api_client_id',
                 TextType::class,
                 [
-                    'label' => 'brightweb.stan_plugin.form.gateway_configuration.test_api_client_id',
+                    'label' => 'brightweb.stan_plugin.ui.form.gateway_configuration.test_api_client_id',
                 ],
             )
             ->add(
                 'live_api_secret',
                 TextType::class,
                 [
-                    'label' => 'brightweb.stan_plugin.form.gateway_configuration.live_api_client_secret',
+                    'label' => 'brightweb.stan_plugin.ui.form.gateway_configuration.live_api_client_secret',
                     'constraints' => [
                         new NotBlank(
                             [
-                                'message' => 'brightweb.stan_plugin.form.validator.api_client_secret.not_blank',
+                                'message' => 'brightweb.stan_plugin.ui.form.validator.api_client_secret.not_blank',
                                 'groups' => ['sylius'],
                             ],
                         ),
@@ -93,16 +94,16 @@ final class StanPayGatewayConfigurationType extends AbstractType
                 'test_api_secret',
                 TextType::class,
                 [
-                    'label' => 'brightweb.stan_plugin.form.gateway_configuration.test_api_client_secret',
+                    'label' => 'brightweb.stan_plugin.ui.form.gateway_configuration.test_api_client_secret',
                 ],
             )
             ->add(
                 'only_for_stanner',
                 CheckboxType::class,
                 [
-                    'label' => 'brightweb.stan_plugin.form.gateway_configuration.only_for_stanner',
+                    'label' => 'brightweb.stan_plugin.ui.form.gateway_configuration.only_for_stanner',
                     'required' => false,
-                    'help' => 'brightweb.stan_plugin.form.gateway_configuration.only_for_stanner_tip',
+                    'help' => 'brightweb.stan_plugin.ui.form.gateway_configuration.only_for_stanner_tip',
                 ],
             )
             ->add(
@@ -118,6 +119,8 @@ final class StanPayGatewayConfigurationType extends AbstractType
                 /** @var ArrayObject $gatewayOptions */
                 $gatewayOptions = $event->getData();
 
+                // TODO check if redirect URI already set
+
                 $api = new StanPayClient([
                     'environment' => StanPayClient::STAN_MODE_LIVE,
                     'client_id' => $gatewayOptions['live_api_client_id'],
@@ -126,12 +129,12 @@ final class StanPayGatewayConfigurationType extends AbstractType
 
                 $apiSettings = new ApiSettingsRequestBody();
                 $apiSettings->setPaymentWebhookUrl("{$this->baseUrl}/payment/notify/unsafe/stan_pay");
+                $apiSettings->setOauthRedirectUrl("{$this->baseUrl}/stan-connect");
 
-                // TODO check if not already sets
                 try {
                     $api->updateApiSettings($apiSettings);
-                } catch (ApiException $e) {
-                    // TODO display flash message bad API creds
+                } catch (ApiException|\InvalidArgumentException $e) {
+                    $event->getForm()->addError(new FormError('brightweb.stan_plugin.ui.form.api_error'));
                 }
             })
         ;
