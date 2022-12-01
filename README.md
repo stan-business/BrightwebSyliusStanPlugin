@@ -1,122 +1,54 @@
 <p align="center">
+    <a href="https://www.stan-business.fr" target="_blank">
+        <img src="https://uploads-ssl.webflow.com/6244c80f2415f9499e3eb441/6256f6482c7c155a8f5a39b0_logo_stan_nobg_gradv2-min.png" width="200"  />
+    </a>
+</p>
+<br/>
+<p align="center">
     <a href="https://sylius.com" target="_blank">
-        <img src="https://demo.sylius.com/assets/shop/img/logo.png" />
+        <img src="https://demo.sylius.com/assets/shop/img/logo.png" width="200"  />
     </a>
 </p>
 
-<h1 align="center">Plugin Skeleton</h1>
+# Stan Plugin in Sylius
+----
 
-<p align="center">Skeleton for starting Sylius plugins.</p>
+[![](https://img.shields.io/packagist/l/stan-business/sylius-stan-plugin.svg) ](https://packagist.org/packages/stan-business/sylius-stan-plugin "License") [ ![](https://img.shields.io/packagist/v/stan-business/sylius-stan-plugin.svg) ](https://packagist.org/packages/stan-business/sylius-stan-plugin "Version") [![Support](https://img.shields.io/badge/support-contact%20author-blue])](https://compte.stan-app.fr)
 
-## Documentation
+Stan is a French payment solution that allows e-commerce sites to offer their customers an ultra-fast checkout and an innovative alternative payment method to the bank card. Add the free Stan plugin and make your Sylius store take off.
 
-For a comprehensive guide on Sylius Plugins development please go to Sylius documentation,
-there you will find the <a href="https://docs.sylius.com/en/latest/plugin-development-guide/index.html">Plugin Development Guide</a>, that is full of examples.
+## Why choose Stan?
 
-## Quickstart Installation
-
-### Traditional
-
-1. Run `composer create-project sylius/plugin-skeleton ProjectName`.
-
-2. From the plugin skeleton root directory, run the following commands:
-
-    ```bash
-    $ (cd tests/Application && yarn install)
-    $ (cd tests/Application && yarn build)
-    $ (cd tests/Application && APP_ENV=test bin/console assets:install public)
-    
-    $ (cd tests/Application && APP_ENV=test bin/console doctrine:database:create)
-    $ (cd tests/Application && APP_ENV=test bin/console doctrine:schema:create)
-    ```
-
-To be able to set up a plugin's database, remember to configure you database credentials in `tests/Application/.env` and `tests/Application/.env.test`.
-
-### Docker
-
-1. Execute `docker compose up -d`
-
-2. Initialize plugin `docker compose exec app make init`
-
-3. See your browser `open localhost`
-
-## Usage
-
-### Running plugin tests
-
-  - PHPUnit
-
-    ```bash
-    vendor/bin/phpunit
-    ```
-
-  - PHPSpec
-
-    ```bash
-    vendor/bin/phpspec run
-    ```
-
-  - Behat (non-JS scenarios)
-
-    ```bash
-    vendor/bin/behat --strict --tags="~@javascript"
-    ```
-
-  - Behat (JS scenarios)
+The benefits of the Stan solution are multiple.
  
-    1. [Install Symfony CLI command](https://symfony.com/download).
+✔ Boosted conversion rate
+
+✔ No card limit
+
+✔ Direct account-to-account transfer
+
+✔ Fewer frauds
+
+✔ Better customer satisfaction
+
+✔ Enhanced security
+
+✔ Certified by the ACPR-Banque de France
+
+## Power up your website with Open Banking payment
+
+Stan Pay connects you to the millions of consumers who already use their banking app with our industry-leading technology.
  
-    2. Start Headless Chrome:
-    
-      ```bash
-      google-chrome-stable --enable-automation --disable-background-networking --no-default-browser-check --no-first-run --disable-popup-blocking --disable-default-apps --allow-insecure-localhost --disable-translate --disable-extensions --no-sandbox --enable-features=Metal --headless --remote-debugging-port=9222 --window-size=2880,1800 --proxy-server='direct://' --proxy-bypass-list='*' http://127.0.0.1
-      ```
-    
-    3. Install SSL certificates (only once needed) and run test application's webserver on `127.0.0.1:8080`:
-    
-      ```bash
-      symfony server:ca:install
-      APP_ENV=test symfony server:start --port=8080 --dir=tests/Application/public --daemon
-      ```
-    
-    4. Run Behat:
-    
-      ```bash
-      vendor/bin/behat --strict --tags="@javascript"
-      ```
-    
-  - Static Analysis
-  
-    - Psalm
-    
-      ```bash
-      vendor/bin/psalm
-      ```
-      
-    - PHPStan
-    
-      ```bash
-      vendor/bin/phpstan analyse -c phpstan.neon -l max src/  
-      ```
+✔ Your customers make a transfer directly from their bank account to yours
 
-  - Coding Standard
-  
-    ```bash
-    vendor/bin/ecs check src
-    ```
+✔ No IBAN entry
 
-### Opening Sylius with your plugin
+✔ Connection to the main French banks
 
-- Using `test` environment:
+✔ The fastest, safest and most cost-effective way to accept payments from your customers
 
-    ```bash
-    (cd tests/Application && APP_ENV=test bin/console sylius:fixtures:load)
-    (cd tests/Application && APP_ENV=test symfony server:start --allow-http --dir public)
-    ```
-    
-- Using `dev` environment:
 
-    ```bash
-    (cd tests/Application && APP_ENV=dev bin/console sylius:fixtures:load)
-    (cd tests/Application && APP_ENV=dev symfony server:start --allow-http --dir public)
-    ```
+1. [Installation](docs/installation.md)
+1. [Onboarding](docs/onboarding.md)
+1. [Configuration](docs/configuration.md)
+1. [Development](docs/development.md)
