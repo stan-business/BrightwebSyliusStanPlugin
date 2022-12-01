@@ -1,4 +1,5 @@
 {
+    "name": "stan-business/sylius-stan-plugin",
     "type": "sylius",
     "keywords": [
         "sylius",
