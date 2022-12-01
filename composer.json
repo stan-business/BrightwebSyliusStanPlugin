@@ -1,8 +1,14 @@
 {
-    "type": "sylius-plugin",
+    "type": "sylius",
     "keywords": [
         "sylius",
-        "sylius-plugin"
+        "sylius-plugin",
+        "stan",
+        "stan-pay",
+        "payment",
+        "open-banking",
+        "one-click-checkout",
+        "stan-connect"
     ],
     "license": "proprietary",
     "require": {
