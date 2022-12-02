@@ -13,6 +13,7 @@
     ![](configuration/3.stan_connect_conf.png)
 
 Stan Pay will display a Stan Payment method in payment selection page
+
 Stan Connect will display a Stan Connect button in addressing page
 
 ---
