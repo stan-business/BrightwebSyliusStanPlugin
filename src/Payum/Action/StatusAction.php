@@ -11,11 +11,12 @@ declare(strict_types=1);
 namespace Brightweb\SyliusStanPlugin\Payum\Action;
 
 use ArrayAccess;
-use Brightweb\SyliusStanPlugin\Client\StanPayClient;
 use Payum\Core\Action\ActionInterface;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\RequestNotSupportedException;
 use Payum\Core\Request\GetStatusInterface;
+
+use Stan\Model\Payment;
 
 class StatusAction implements ActionInterface
 {
@@ -41,21 +42,22 @@ class StatusAction implements ActionInterface
         }
 
         switch ($details['stan_payment_status']) {
-            case StanPayClient::PAYMENT_FAILURE:
+            case Payment::PAYMENT_STATUS_FAILURE:
+            case Payment::PAYMENT_STATUS_EXPIRED:
                 $request->markFailed();
 
                 break;
-            case StanPayClient::PAYMENT_CANCELLED:
+            case Payment::PAYMENT_STATUS_CANCELLED:
                 $request->markCanceled();
 
                 break;
-            case StanPayClient::PAYMENT_PENDING:
-            case StanPayClient::PAYMENT_HOLDING:
-            case StanPayClient::PAYMENT_PREPARED:
+            case Payment::PAYMENT_STATUS_PENDING:
+            case Payment::PAYMENT_STATUS_HOLDING:
+            case Payment::PAYMENT_STATUS_PREPARED:
                 $request->markPending();
 
                 break;
-            case StanPayClient::PAYMENT_SUCCESS:
+            case Payment::PAYMENT_STATUS_SUCCESS:
                 $request->markCaptured();
 
                 break;

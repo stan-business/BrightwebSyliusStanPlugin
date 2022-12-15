@@ -46,10 +46,16 @@ class PreparePaymentAction implements ActionInterface, ApiAwareInterface
 
         $details->validateNotEmpty(['int_amount', 'currency_code', 'return_url', 'order_id']);
 
+        // get all amounts here
+
         $paymentBody = new PaymentRequestBody();
         $paymentBody
             ->setOrderId($details['order_id'])
             ->setAmount($details['int_amount'])
+            ->setSubtotalAmount($details['int_subtotal_amount'])
+            ->setShippingAmount($details['int_shipping_amount'])
+            ->setDiscountAmount($details['int_discount_amount'])
+            ->setTaxAmount($details['int_tax_amount'])
             ->setReturnUrl($details['return_url'])
         ;
 

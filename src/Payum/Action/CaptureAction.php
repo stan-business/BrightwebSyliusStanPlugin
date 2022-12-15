@@ -55,8 +55,15 @@ class CaptureAction implements ActionInterface, GatewayAwareInterface, GenericTo
             );
             $details['token_hash'] = $notifyToken->getHash();
 
+            $orderTotalAmount = $order->getTotal();
+            $orderTaxTotalAmount = $order->getTaxTotal();
+
             $details['order_id'] = $order->getNumber();
-            $details['int_amount'] = $order->getTotal();
+            $details['int_amount'] = $orderTotalAmount;
+            $details['int_subtotal_amount'] = $orderTotalAmount - $orderTaxTotalAmount;
+            $details['int_tax_amount'] = $orderTaxTotalAmount;
+            $details['int_shipping_amount'] = $order->getShippingTotal();
+            $details['int_discount_amount'] = $order->getOrderPromotionTotal();
 
             $customer = $order->getCustomer();
             $billingAddress = $order->getBillingAddress();
