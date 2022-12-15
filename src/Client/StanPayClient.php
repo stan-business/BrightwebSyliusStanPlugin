@@ -28,18 +28,6 @@ final class StanPayClient implements StanPayClientInterface
 
     public const STAN_MODE_LIVE = 'LIVE';
 
-    public const PAYMENT_PREPARED = 'payment_prepared';
-
-    public const PAYMENT_PENDING = 'payment_pending';
-
-    public const PAYMENT_FAILURE = 'payment_failure';
-
-    public const PAYMENT_SUCCESS = 'payment_success';
-
-    public const PAYMENT_CANCELLED = 'payment_cancelled';
-
-    public const PAYMENT_HOLDING = 'payment_holding';
-
     public array $options;
 
     private string $baseUrl;
