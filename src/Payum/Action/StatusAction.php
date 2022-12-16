@@ -47,13 +47,15 @@ class StatusAction implements ActionInterface
                 $request->markFailed();
 
                 break;
+            case Payment::PAYMENT_STATUS_PREPARED:
+                $request->markNew();
+                break;
             case Payment::PAYMENT_STATUS_CANCELLED:
                 $request->markCanceled();
 
                 break;
             case Payment::PAYMENT_STATUS_PENDING:
             case Payment::PAYMENT_STATUS_HOLDING:
-            case Payment::PAYMENT_STATUS_PREPARED:
                 $request->markPending();
 
                 break;
