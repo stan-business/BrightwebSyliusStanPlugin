@@ -110,9 +110,9 @@ class CaptureActionSpec extends ObjectBehavior
             'customer_fullname' => null
         ]);
 
-        $gateway->execute(new Sync($details))->shouldBeCalled();
-        $gateway->execute(new PreparePayment($details))->shouldBeCalled();
         $gateway->execute(new CreateCustomer($details))->shouldBeCalled();
+        $gateway->execute(new PreparePayment($details))->shouldBeCalled();
+        $gateway->execute(new Sync($details))->shouldBeCalled();
 
         $this->execute($request);
     }
@@ -134,6 +134,8 @@ class CaptureActionSpec extends ObjectBehavior
         $request->getModel()->willReturn($details);
         $orderItem->getOrder()->willReturn($order);
 
+        $gateway->execute(new CreateCustomer($details))->shouldNotBeCalled();
+        $gateway->execute(new PreparePayment($details))->shouldNotBeCalled();
         $gateway->execute(new Sync($details))->shouldBeCalled();
 
         $this->execute($request);
