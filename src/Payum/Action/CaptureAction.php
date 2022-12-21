@@ -22,6 +22,7 @@ use Payum\Core\Request\Capture;
 use Payum\Core\Request\Sync;
 use Payum\Core\Security\GenericTokenFactoryAwareInterface;
 use Payum\Core\Security\GenericTokenFactoryAwareTrait;
+use Payum\Core\Security\GenericTokenFactoryInterface;
 use Payum\Core\Security\TokenInterface;
 use Sylius\Component\Core\Model\OrderInterface;
 

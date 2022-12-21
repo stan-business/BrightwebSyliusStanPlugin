@@ -23,6 +23,7 @@ use Brightweb\SyliusStanPlugin\Payum\Action\SyncAction;
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Payum\Core\Exception\LogicException;
 use Payum\Core\GatewayFactory;
+use Payum\Core\Request\GetHttpRequest;
 use Stan\Configuration as StanConfiguration;
 
 class StanPayGatewayFactory extends GatewayFactory
@@ -38,7 +39,7 @@ class StanPayGatewayFactory extends GatewayFactory
             'payum.factory_title' => 'Stan Pay',
             'payum.action.capture' => new CaptureAction(),
             'payum.action.status' => new StatusAction(),
-            'payum.action.notify_null' => new NotifyNullAction(),
+            'payum.action.notify_null' => new NotifyNullAction(new GetHttpRequest()),
             'payum.action.notify' => new NotifyAction(),
             'payum.action.sync' => new SyncAction(),
             'payum.action.convert_payment' => new ConvertPaymentAction(),
