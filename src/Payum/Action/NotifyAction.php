@@ -37,6 +37,9 @@ class NotifyAction implements ActionInterface, GatewayAwareInterface
         throw new HttpResponse('OK', 200);
     }
 
+    /**
+     * @param Notify $request
+     */
     public function supports($request): bool
     {
         return $request instanceof Notify &&
