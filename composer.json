@@ -17,7 +17,7 @@
         "php": "^8.0",
         "stan-business/stan-php": "^1.0.4",
         "sylius/mailer-bundle": "^1.8 || ^2.0@beta",
-        "sylius/sylius": "^1.12",
+        "sylius/sylius": "^1.11 || ^1.12",
         "symfony/webpack-encore-bundle": "^1.15"
     },
     "require-dev": {
