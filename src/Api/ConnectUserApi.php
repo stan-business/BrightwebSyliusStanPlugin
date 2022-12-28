@@ -47,9 +47,11 @@ final class ConnectUserApi implements ConnectUserApiInterface
         return null;
     }
 
-    public function getConnectUrl(): string
+    public function getConnectUrl(string|null $state = null): string
     {
-        $state = StanUtils::generateState();
+        if (null === $state) {
+            $state = StanUtils::generateState();
+        }
 
         return $this
             ->stanConnectClient
@@ -62,6 +64,6 @@ final class ConnectUserApi implements ConnectUserApiInterface
         $scheme = $this->router->getContext()->getScheme();
         $host = $this->router->getContext()->getHost();
 
-        return $scheme . '://' . $host . ':8000/stan-connect';
+        return $scheme . '://' . $host . '/stan-connect';
     }
 }

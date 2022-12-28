@@ -16,7 +16,7 @@ interface ConnectUserApiInterface
 {
     public function getUserWithAuthorizationCode(string $code): ?User;
 
-    public function getConnectUrl(): string;
+    public function getConnectUrl(string|null $state): string;
 
     public function getRedirectUri(): string;
 }
