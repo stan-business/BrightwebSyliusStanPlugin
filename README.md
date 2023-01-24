@@ -21,6 +21,7 @@
 
 Stan is a French payment solution that allows e-commerce sites to offer their customers an ultra-fast checkout and an innovative alternative payment method to the bank card. Add the free Stan plugin and make your Sylius store take off.
 
+
 ## Why choose Stan?
 
 The benefits of the Stan solution are multiple.
