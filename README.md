@@ -15,6 +15,10 @@
 
 [![](https://img.shields.io/packagist/l/stan-business/sylius-stan-plugin.svg) ](https://packagist.org/packages/stan-business/sylius-stan-plugin "License") [ ![](https://img.shields.io/packagist/v/stan-business/sylius-stan-plugin.svg) ](https://packagist.org/packages/stan-business/sylius-stan-plugin "Version") [![Support](https://img.shields.io/badge/support-contact%20author-blue])](https://compte.stan-app.fr)
 
+<p>
+ <img align="left" src="https://sylius.com/assets/badge-approved-by-sylius.png" width="85">
+</p> 
+
 Stan is a French payment solution that allows e-commerce sites to offer their customers an ultra-fast checkout and an innovative alternative payment method to the bank card. Add the free Stan plugin and make your Sylius store take off.
 
 ## Why choose Stan?
