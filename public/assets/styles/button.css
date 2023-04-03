@@ -1,6 +1,6 @@
 #stan-easy-connect.stan-button {
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	margin: 1em 0;
@@ -17,13 +17,14 @@
 	padding: 10px 15px;
 }
 #stan-easy-connect.stan-button a:hover {
-	background-color: #01052E;
-	color: #FFF;
+	background-color: #01052E !important;
+	color: #FFF !important;
 }
 
 #stan-easy-connect.stan-button a svg {
 	vertical-align: top;
 	margin-right: 6px;
+    margin-top: -3px;
 }
 
 #stan-easy-connect .stanconnect-tooltip {

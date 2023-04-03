@@ -22,7 +22,7 @@ brightweb:
                         not_blank: "Votre API client ID doit être renseigné"
                     api_client_secret:
                         not_blank: "Votre secret de client API doit être renseigné"
-        connect_with_stan: "Se connect avec Stan"
+        connect_with_stan: "Se connecter avec Stan"
         connect_with_stan_tooltip: "Le checkout en 1 clic nécessite d'avoir un compte Stan"
-        form_title: "Easy checkin avec Stan"
+        form_title: "— Ou tout compléter manuellement —"
         gateway_label: "Stan Pay"
