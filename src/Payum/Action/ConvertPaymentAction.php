@@ -24,13 +24,16 @@ class ConvertPaymentAction implements ActionInterface, GatewayAwareInterface
     use GatewayAwareTrait;
 
     /**
-     * @param Convert $request
+     * @param mixed $request
      */
     public function execute($request): void
     {
         RequestNotSupportedException::assertSupports($this, $request);
 
-        /** @var PaymentInterface $payment */
+        /**
+         * @var PaymentInterface $payment
+         * @phpstan-ignore-next-line assertSupports called
+         */
         $payment = $request->getSource();
 
         $this->gateway->execute($currency = new GetCurrency($payment->getCurrencyCode()));
@@ -41,12 +44,12 @@ class ConvertPaymentAction implements ActionInterface, GatewayAwareInterface
         $details['amount'] = $payment->getTotalAmount() / $divisor;
         $details['reason'] = $payment->getDescription();
 
+        /**
+         * @phpstan-ignore-next-line assertSupports called
+         */
         $request->setResult((array) $details);
     }
 
-    /**
-     * @param Convert $request
-     */
     public function supports($request): bool
     {
         return $request instanceof Convert &&

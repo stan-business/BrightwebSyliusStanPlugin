@@ -58,12 +58,12 @@ class StanPayGatewayFactory extends GatewayFactory
                 'client_test_secret' => '',
                 'only_for_stanner' => '',
             ];
-            $config->defaults($config['payum.default_options']);
+            $config->defaults((array) $config['payum.default_options']);
 
             $config['payum.required_options'] = ['environment', 'live_api_client_id', 'live_api_secret'];
 
             $config['payum.api'] = function (ArrayObject $config): StanPayClient {
-                $config->validateNotEmpty($config['payum.required_options']);
+                $config->validateNotEmpty((array) $config['payum.required_options']);
 
                 return new StanPayClient([
                     'environment' => $config['environment'],

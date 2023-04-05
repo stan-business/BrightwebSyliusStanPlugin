@@ -34,7 +34,7 @@ class NotifyNullAction implements ActionInterface, GatewayAwareInterface
     }
 
     /**
-     * @param Notify $request
+     * @param mixed $request
      */
     public function execute($request): void
     {

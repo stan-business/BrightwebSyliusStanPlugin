@@ -16,6 +16,7 @@ use Stan\Api\StanClient as Api;
 use Stan\ApiException;
 use Stan\Configuration;
 use Stan\Model\ConnectAccessTokenRequestBody;
+use Sylius\Component\Core\Model\ChannelInterface;
 use Stan\Model\User;
 use Stan\Utils\ConnectUtils;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
@@ -44,8 +45,10 @@ final class StanConnectClient implements StanConnectClientInterface
 
     public function getAccessToken(string $code, string $redirectUri): ?string
     {
-        $clientId = $this->stanConfigurationProvider->getStanConnectClientId($this->channelContext->getChannel());
-        $clientSecret = $this->stanConfigurationProvider->getStanConnectClientSecret($this->channelContext->getChannel());
+        /** @var ChannelInterface $channel */
+        $channel = $this->channelContext->getChannel();
+        $clientId = $this->stanConfigurationProvider->getStanConnectClientId($channel);
+        $clientSecret = $this->stanConfigurationProvider->getStanConnectClientSecret($channel);
 
         $accessTokenPayload = new ConnectAccessTokenRequestBody();
         $accessTokenPayload = $accessTokenPayload
@@ -95,7 +98,9 @@ final class StanConnectClient implements StanConnectClientInterface
 
     public function getConnectUrl(string $redirectUri, string $state): string
     {
-        $clientId = $this->stanConfigurationProvider->getStanConnectClientId($this->channelContext->getChannel());
+        /** @var ChannelInterface $channel */
+        $channel = $this->channelContext->getChannel();
+        $clientId = $this->stanConfigurationProvider->getStanConnectClientId($channel);
         $config = $this->getApiConfiguration();
 
         return ConnectUtils::generateAuthorizeRequestLink(

@@ -35,21 +35,29 @@ final class DisplayStanPaymentMethodResolver implements PaymentMethodsResolverIn
             $isStanner = $this->checkIfStanner($userAgent);
 
             foreach ($supportedMethods as $index => $method) {
-                /** @var ArrayObject $gatewayConfig */
-                $gatewayConfig = $method->getGatewayConfig()->getConfig();
+                if ($method instanceof PaymentMethodInterface) {
+                    $config = $method->getGatewayConfig();
+                    if ($config !== null) {
+                        /** @var array $gatewayConfig */
+                        $gatewayConfig = $config->getConfig();
+                        if (isset($gatewayConfig['only_for_stanner'])) {;
+                            if (true === (bool) $gatewayConfig['only_for_stanner'] && !$isStanner) {
+                                unset($supportedMethods[$index]);
 
-                if (isset($gatewayConfig['only_for_stanner'])) {;
-                    if (true === (bool) $gatewayConfig['only_for_stanner'] && !$isStanner) {
-                        unset($supportedMethods[$index]);
-
-                        break;
+                                break;
+                            }
+                        }
                     }
                 }
             }
 
             if ($isStanner) {
                 $stanPayCode = 'stan_pay';
-                usort($supportedMethods, function(PaymentMethodInterface $a, PaymentMethodInterface $b) use ($stanPayCode) {
+                /**
+                 * @param PaymentMethodInterface[] $supportedMethods
+                 * @phpstan-ignore-next-line it returns int (-1, 1 or 0)
+                 */
+                usort($supportedMethods, function (PaymentMethodInterface $a, PaymentMethodInterface $b) use ($stanPayCode): int {
                     if ($a->getCode() === $stanPayCode) {
                         return -1;
                     }

@@ -32,34 +32,44 @@ class CreateCustomerAction implements ActionInterface, ApiAwareInterface
     }
 
     /**
-     * @param CreateCustomer $request
+     * @param mixed $request
      */
     public function execute($request): void
     {
-        if (true === (bool) $this->api->options['only_for_stanner']) {
+        RequestNotSupportedException::assertSupports($this, $request);
+
+        if (!$this->api instanceof StanPayClient) {
             return;
         }
 
-        RequestNotSupportedException::assertSupports($this, $request);
+        /** @var array $options */
+        $options = $this->api->options;
 
+        if (true === (bool) $options['only_for_stanner']) {
+            return;
+        }
+
+        /** @var ArrayObject $details
+         * @phpstan-ignore-next-line assertSupports called
+         */
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
         $customerBody = new CustomerRequestBody();
 
         $customerAddress = new Address();
         $customerAddress = $customerAddress
-            ->setFirstname($details['customer_firstname'])
-            ->setLastname($details['customer_lastname'])
-            ->setStreetAddress($details['customer_street_address'])
+            ->setFirstname(strval($details['customer_firstname']))
+            ->setLastname(strval($details['customer_lastname']))
+            ->setStreetAddress(strval($details['customer_street_address']))
             // ->setStreetAddressLine2() TODO get line2 from shipping address
-            ->setLocality($details['customer_city'])
-            ->setZipCode($details['customer_postcode'])
-            ->setCountry($details['customer_country_code'])
+            ->setLocality(strval($details['customer_city']))
+            ->setZipCode(strval($details['customer_postcode']))
+            ->setCountry(strval($details['customer_country_code']))
         ;
 
         $customerBody = $customerBody
-            ->setEmail($details['customer_email'])
-            ->setName($details['customer_fullname'])
+            ->setEmail(strval($details['customer_email']))
+            ->setName(strval($details['customer_fullname']))
             ->setAddress($customerAddress)
         ;
 
@@ -74,7 +84,8 @@ class CreateCustomerAction implements ActionInterface, ApiAwareInterface
     public function supports($request): bool
     {
         return $request instanceof CreateCustomer &&
-            $request->getModel() instanceof ArrayAccess
+            $request->getModel() instanceof ArrayAccess &&
+            $this->api instanceof StanPayClient
         ;
     }
 }

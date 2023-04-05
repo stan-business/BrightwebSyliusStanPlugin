@@ -13,7 +13,9 @@ namespace Brightweb\SyliusStanPlugin\Controller;
 use Brightweb\SyliusStanPlugin\Api\ConnectUserApiInterface;
 use Brightweb\SyliusStanPlugin\Provider\StanConfigurationProviderInterface;
 use Sylius\Component\Channel\Context\ChannelContextInterface;
+use Sylius\Component\Core\Model\ChannelInterface;
 use Sylius\Component\Order\Context\CartContextInterface;
+use Sylius\Component\Core\Model\OrderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
@@ -46,11 +48,18 @@ class ConnectButtonsController
 
     public function renderAddressingButton(Request $request): Response
     {
-        if (false === $this->stanConfigurationProvider->getStanConnectEnabled($this->channelContext->getChannel())) {
+        /** @var ChannelInterface $channel */
+        $channel = $this->channelContext->getChannel();
+        if (false === $this->stanConfigurationProvider->getStanConnectEnabled($channel)) {
             return new Response('');
         }
 
+
         $order = $this->cartContext->getCart();
+        if (!$order instanceof OrderInterface) {
+            return new Response('');
+        }
+
         $customer = $order->getCustomer();
 
         // dont display Stan Connect if infos already filled
@@ -60,7 +69,7 @@ class ConnectButtonsController
 
         try {
             return new Response($this->twig->render('@BrightwebSyliusStanPlugin/stan_connect_button.html.twig', [
-                'connect_url' => $this->stanConnectApi->getConnectUrl(),
+                'connect_url' => $this->stanConnectApi->getConnectUrl(null),
             ]));
         } catch (\InvalidArgumentException $exception) {
             return new Response('');

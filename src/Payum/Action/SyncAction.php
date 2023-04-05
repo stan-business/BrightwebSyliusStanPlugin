@@ -24,12 +24,15 @@ class SyncAction implements ActionInterface, GatewayAwareInterface
     use GatewayAwareTrait;
 
     /**
-     * @param Sync $request
+     * @param mixed $request
      */
     public function execute($request): void
     {
         RequestNotSupportedException::assertSupports($this, $request);
 
+        /**
+         * @phpstan-ignore-next-line assertSupports called
+         */
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
         if (isset($details['stan_payment_id'])) {

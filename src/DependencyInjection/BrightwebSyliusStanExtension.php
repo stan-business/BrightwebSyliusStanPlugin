@@ -20,7 +20,7 @@ final class BrightwebSyliusStanExtension extends AbstractResourceExtension
         $config = $this->processConfiguration($this->getConfiguration([], $container), $configs);
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
 
-        $container->setParameter('brightweb.stan_plugin.api_base_url', 'https://api.stan-app.fr/v1');
+        $container->setParameter('brightweb.stan_plugin.api_base_url', 'https://api-staging.stan-app.fr/v1');
 
         $loader->load('services.xml');
     }

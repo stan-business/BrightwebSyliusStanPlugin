@@ -20,6 +20,7 @@ use Sylius\Component\Core\Factory\AddressFactoryInterface;
 use Sylius\Component\Core\Model\AddressInterface;
 use Sylius\Component\Core\Model\CustomerInterface;
 use Sylius\Component\Core\OrderCheckoutTransitions;
+use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Core\Repository\CustomerRepositoryInterface;
 use Sylius\Component\Order\Context\CartContextInterface;
 use Sylius\Component\Resource\Factory\FactoryInterface;
@@ -73,13 +74,14 @@ final class ConnectController
 
     public function connectUserWithAuthorizationCode(Request $request): Response
     {
+        /** @var OrderInterface $order */
         $order = $this->cartContext->getCart();
 
-        $err = $request->query->get('error');
-        if (null !== $err) {
+        $err = $request->query->get('error', '');
+        if ($err !== '') {
             $this
                 ->logger
-                ->error(sprintf('connect user with authorization code (redirect URI), requested URL is %s : %s', $request->getUri(), $err->getMessage()))
+                ->error(sprintf('connect user with authorization code (redirect URI), requested URL is %s : %s', $request->getUri(), $err))
             ;
             $this->renderError($request);
 
@@ -88,7 +90,7 @@ final class ConnectController
 
         $code = (string) $request->query->get('code');
 
-        if (!$code) {
+        if ($code === "") {
             $this->renderError($request);
 
             return new RedirectResponse($this->router->generate('sylius_shop_checkout_address'));
@@ -172,14 +174,14 @@ final class ConnectController
     {
         $stanAddress = $user->getShippingAddress();
 
-        if (null === $stanAddress || !$stanAddress->getStreetAddress()) {
+        if (null === $stanAddress || null === $stanAddress->getStreetAddress()) {
             return null;
         }
 
         $address = $this->addressFactory->createForCustomer($customer);
 
-        $address->setFirstName($stanAddress->getFirstname() ?: $user->getGivenName());
-        $address->setLastName($stanAddress->getLastname() ?: $user->getFamilyName());
+        $address->setFirstName($stanAddress->getFirstname() ?? $user->getGivenName());
+        $address->setLastName($stanAddress->getLastname() ?? $user->getFamilyName());
         $address->setStreet($stanAddress->getStreetAddress());
         $address->setCity($stanAddress->getLocality());
         $address->setPostcode($stanAddress->getZipCode());

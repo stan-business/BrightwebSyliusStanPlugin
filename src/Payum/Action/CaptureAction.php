@@ -32,21 +32,30 @@ class CaptureAction implements ActionInterface, GatewayAwareInterface, GenericTo
     use GenericTokenFactoryAwareTrait;
 
     /**
-     * @param Capture $request
+     * @param mixed $request
      */
     public function execute($request): void
     {
         RequestNotSupportedException::assertSupports($this, $request);
 
+        /**
+         * @phpstan-ignore-next-line assertSupports called
+         */
         $model = $request->getModel();
         $details = ArrayObject::ensureArrayObject($model);
 
-        /** @var OrderInterface $order */
+        /**
+         * @var OrderInterface $order
+         * @phpstan-ignore-next-line assertSupports called
+         */
         $order = $request->getFirstModel()->getOrder();
 
         // creates a payment
         if (null === $details['stan_payment_id']) {
-            /** @var TokenInterface $token */
+            /**
+             * @var TokenInterface $token
+             * @phpstan-ignore-next-line assertSupports called
+             */
             $token = $request->getToken();
 
             $details['return_url'] = $token->getTargetUrl();

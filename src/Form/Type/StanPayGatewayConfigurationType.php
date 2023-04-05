@@ -31,7 +31,7 @@ final class StanPayGatewayConfigurationType extends AbstractType
 
     private string $baseApiUrl;
 
-    private $translator;
+    private TranslatorInterface $translator;
 
     public function __construct(string $baseUrl, string $baseApiUrl, TranslatorInterface $translator)
     {

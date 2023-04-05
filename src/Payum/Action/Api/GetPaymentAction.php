@@ -31,19 +31,25 @@ class GetPaymentAction implements ActionInterface, ApiAwareInterface
     }
 
     /**
-     * @param GetPayment $request
+     * @param mixed $request
      */
     public function execute($request): void
     {
         RequestNotSupportedException::assertSupports($this, $request);
 
+        /**
+         * @phpstan-ignore-next-line assertSupports called
+         */
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
         if (false == $details['stan_payment_id']) {
             throw new LogicException('The parameter "stan_payment_id" must be set. Have you run PrepareAction?');
         }
 
-        /** @var Payment $payment */
+        /**
+         * @var Payment $payment
+         * @phpstan-ignore-next-line assertSupports called
+         */
         $payment = $this->api->getPayment($details['stan_payment_id']);
 
         $details->replace([
@@ -54,7 +60,8 @@ class GetPaymentAction implements ActionInterface, ApiAwareInterface
     public function supports($request): bool
     {
         return $request instanceof GetPayment &&
-            $request->getModel() instanceof ArrayAccess
+            $request->getModel() instanceof ArrayAccess &&
+            $this->api instanceof StanPayClient
         ;
     }
 }

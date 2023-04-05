@@ -24,7 +24,7 @@ class NotifyAction implements ActionInterface, GatewayAwareInterface
     use GatewayAwareTrait;
 
     /**
-     * @param Notify $request
+     * @param mixed $request
      *
      * @throws HttpResponse
      */
@@ -32,14 +32,14 @@ class NotifyAction implements ActionInterface, GatewayAwareInterface
     {
         RequestNotSupportedException::assertSupports($this, $request);
 
+        /**
+         * @phpstan-ignore-next-line assertSupports called
+         */
         $this->gateway->execute(new Sync($request->getModel()));
 
         throw new HttpResponse('OK', 200);
     }
 
-    /**
-     * @param Notify $request
-     */
     public function supports($request): bool
     {
         return $request instanceof Notify &&

@@ -19,7 +19,7 @@ use Sylius\Component\Core\Repository\PaymentMethodRepositoryInterface;
 class AutoSelectPaymentMethodListener
 {
 
-    private $paymentMethodRepository;
+    private PaymentMethodRepositoryInterface $paymentMethodRepository;
 
     public function __construct(PaymentMethodRepositoryInterface $paymentMethodRepository)
     {
