@@ -9,6 +9,7 @@
             <tag name="form.type" />
             <argument>%router.request_context.scheme%://%router.request_context.host%</argument>
             <argument>%brightweb.stan_plugin.api_base_url%</argument>
+            <argument type="service" id="translator" />
         </service>
     </services>
 </container>

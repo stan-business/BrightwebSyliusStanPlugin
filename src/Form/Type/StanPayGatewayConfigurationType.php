@@ -23,6 +23,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 final class StanPayGatewayConfigurationType extends AbstractType
 {
@@ -30,10 +31,13 @@ final class StanPayGatewayConfigurationType extends AbstractType
 
     private string $baseApiUrl;
 
-    public function __construct(string $baseUrl, string $baseApiUrl)
+    private $translator;
+
+    public function __construct(string $baseUrl, string $baseApiUrl, TranslatorInterface $translator)
     {
         $this->baseUrl = $baseUrl;
         $this->baseApiUrl = $baseApiUrl;
+        $this->translator = $translator;
     }
 
     /**
@@ -134,7 +138,8 @@ final class StanPayGatewayConfigurationType extends AbstractType
                 try {
                     $api->updateApiSettings($apiSettings);
                 } catch (ApiException|\InvalidArgumentException $e) {
-                    $event->getForm()->addError(new FormError('brightweb.stan_plugin.ui.form.api_error'));
+                    $translatedText = $this->translator->trans('brightweb.stan_plugin.ui.form.api_error');
+                    $event->getForm()->addError(new FormError($translatedText));
                 }
             })
         ;
