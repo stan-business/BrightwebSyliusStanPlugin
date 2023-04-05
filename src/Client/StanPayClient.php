@@ -21,7 +21,6 @@ use Stan\Model\PreparedPayment;
 
 final class StanPayClient implements StanPayClientInterface
 {
-    // TODO must be taken from brightweb.stan_plugin.api_base_url
     public const BASE_API_URL = 'https://api.stan-app.fr/v1';
 
     public const STAN_MODE_TEST = 'TEST';
