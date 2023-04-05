@@ -12,6 +12,7 @@ namespace Brightweb\SyliusStanPlugin\Resolver;
 
 use Payum\Core\Bridge\Spl\ArrayObject;
 use Sylius\Component\Payment\Model\PaymentInterface as BasePaymentInterface;
+use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
 
 final class DisplayStanPaymentMethodResolver implements PaymentMethodsResolverInterface
@@ -31,17 +32,34 @@ final class DisplayStanPaymentMethodResolver implements PaymentMethodsResolverIn
             /** @var string $userAgent */
             $userAgent = $_SERVER['HTTP_USER_AGENT'];
 
+            $isStanner = $this->checkIfStanner($userAgent);
+
             foreach ($supportedMethods as $index => $method) {
                 /** @var ArrayObject $gatewayConfig */
                 $gatewayConfig = $method->getGatewayConfig()->getConfig();
 
-                if (isset($gatewayConfig['only_for_stanner'])) {
-                    if (true === (bool) $gatewayConfig['only_for_stanner'] && !$this->checkIfStanner($userAgent)) {
+                if (isset($gatewayConfig['only_for_stanner'])) {;
+                    if (true === (bool) $gatewayConfig['only_for_stanner'] && !$isStanner) {
                         unset($supportedMethods[$index]);
 
                         break;
                     }
                 }
+            }
+
+            if ($isStanner) {
+                $stanPayCode = 'stan_pay';
+                usort($supportedMethods, function(PaymentMethodInterface $a, PaymentMethodInterface $b) use ($stanPayCode) {
+                    if ($a->getCode() === $stanPayCode) {
+                        return -1;
+                    }
+
+                    if ($b->getCode() === $stanPayCode) {
+                        return 1;
+                    }
+
+                    return 0;
+                });
             }
         }
 

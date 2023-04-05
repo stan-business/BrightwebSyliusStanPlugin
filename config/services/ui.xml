@@ -7,7 +7,7 @@
         <service id="brightweb.stan_plugin.resolver.payment_method"
             class="Brightweb\SyliusStanPlugin\Resolver\DisplayStanPaymentMethodResolver"
             decorates="sylius.payment_methods_resolver"
-            decoration-priority="5">
+            decoration-priority="13">
             <argument type="service" id=".inner" />
         </service>
     </services>
