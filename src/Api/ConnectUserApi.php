@@ -64,6 +64,6 @@ final class ConnectUserApi implements ConnectUserApiInterface
         $scheme = $this->router->getContext()->getScheme();
         $host = $this->router->getContext()->getHost();
 
-        return $scheme . '://' . $host . ':8000/stan-connect';
+        return $scheme . '://' . $host . '/stan-connect';
     }
 }
