@@ -32,6 +32,7 @@ class SyncAction implements ActionInterface, GatewayAwareInterface
 
         /**
          * @phpstan-ignore-next-line assertSupports called
+         * @psalm-suppress MixedMethodCall
          */
         $details = ArrayObject::ensureArrayObject($request->getModel());
 

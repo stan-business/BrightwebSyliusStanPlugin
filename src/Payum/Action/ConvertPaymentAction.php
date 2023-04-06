@@ -33,6 +33,7 @@ class ConvertPaymentAction implements ActionInterface, GatewayAwareInterface
         /**
          * @var PaymentInterface $payment
          * @phpstan-ignore-next-line assertSupports called
+         * @psalm-suppress MixedMethodCall
          */
         $payment = $request->getSource();
 
@@ -46,6 +47,7 @@ class ConvertPaymentAction implements ActionInterface, GatewayAwareInterface
 
         /**
          * @phpstan-ignore-next-line assertSupports called
+         * @psalm-suppress MixedMethodCall
          */
         $request->setResult((array) $details);
     }

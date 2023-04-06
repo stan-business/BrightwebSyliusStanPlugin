@@ -77,6 +77,7 @@ final class ConnectController
         /** @var OrderInterface $order */
         $order = $this->cartContext->getCart();
 
+        /** @var string $err */
         $err = $request->query->get('error', '');
         if ($err !== '') {
             $this

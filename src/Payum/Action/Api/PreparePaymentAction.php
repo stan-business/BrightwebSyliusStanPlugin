@@ -40,20 +40,20 @@ class PreparePaymentAction implements ActionInterface, ApiAwareInterface
         RequestNotSupportedException::assertSupports($this, $request);
 
         /**
-         * @var ArrayObject $details
          * @phpstan-ignore-next-line assertSupports called
+         * @psalm-suppress MixedMethodCall
          */
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
         if (isset($details['stan_payment_id'])) {
+            /** @psalm-suppress MixedArgument */
             throw new LogicException(sprintf('The transaction has already been created for this payment. stan_payment_id: %s', strval($details['stan_payment_id'])));
         }
 
         $details->validateNotEmpty(['int_amount', 'currency_code', 'return_url', 'order_id']);
 
-        // get all amounts here
-
         $paymentBody = new PaymentRequestBody();
+        /** @psalm-suppress MixedArgument */
         $paymentBody
             ->setOrderId(strval($details['order_id']))
             ->setAmount(intval($details['int_amount']))
@@ -65,23 +65,36 @@ class PreparePaymentAction implements ActionInterface, ApiAwareInterface
         ;
 
         if (isset($details['token_hash'])) {
+            /** @psalm-suppress MixedArgument */
             $paymentBody->setState(strval($details['token_hash']));
         }
         if (isset($details['stan_customer_id'])) {
+            /** @psalm-suppress MixedArgument */
             $paymentBody->setCustomerId(strval($details['stan_customer_id']));
         }
 
         /**
          * @phpstan-ignore-next-line assertSupports called
+         * @psalm-suppress MixedAssignment $preparedPayment is of type StanPreparePayment
+         * @psalm-suppress MixedMethodCall
          */
         $preparedPayment = $this->api->preparePayment($paymentBody);
 
+        /**
+         * @psalm-suppress MixedMethodCall
+         * @psalm-suppress MixedArgument
+         */
         $details->replace([
             'stan_payment_id' => $preparedPayment->getPaymentId(),
             'payment_url' => $preparedPayment->getRedirectUrl(),
         ]);
 
-        throw new HttpRedirect(strval($details['payment_url']));
+        /**
+         * @psalm-suppress MixedArgument
+         */
+        $redirectUrl = strval($details['payment_url']);
+
+        throw new HttpRedirect($redirectUrl);
     }
 
     public function supports($request): bool

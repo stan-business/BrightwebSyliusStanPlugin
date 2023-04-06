@@ -29,27 +29,51 @@ final class StanConfigurationProvider implements StanConfigurationProviderInterf
     {
         $config = $this->getStanPaymentMethodConfig($channel);
         Assert::keyExists($config, 'stan_connect');
-        Assert::keyExists($config['stan_connect'], 'enable_stan_connect');
 
-        return (bool) $config['stan_connect']['enable_stan_connect'];
+        /**
+         * @var array $stanConnect
+         */
+        $stanConnect = $config['stan_connect'];
+
+        /**
+         * @psalm-suppress MixedArgument
+         * @psalm-suppress MixedArrayAccess
+         */
+        Assert::keyExists($stanConnect, 'enable_stan_connect');
+
+        return (bool) $stanConnect['enable_stan_connect'];
     }
 
     public function getStanConnectClientId(ChannelInterface $channel): string
     {
         $config = $this->getStanPaymentMethodConfig($channel);
         Assert::keyExists($config, 'stan_connect');
-        Assert::keyExists($config['stan_connect'], 'client_id');
 
-        return (string) $config['stan_connect']['client_id'];
+        /**
+         * @var array $stanConnect
+         */
+        $stanConnect = $config['stan_connect'];
+
+        Assert::keyExists($stanConnect, 'client_id');
+
+        return (string) $stanConnect['client_id'];
     }
 
     public function getStanConnectClientSecret(ChannelInterface $channel): string
     {
         $config = $this->getStanPaymentMethodConfig($channel);
         Assert::keyExists($config, 'stan_connect');
-        Assert::keyExists($config['stan_connect'], 'client_secret');
 
-        return (string) $config['stan_connect']['client_secret'];
+        /**
+         * @var array $stanConnect
+         */
+        $stanConnect = $config['stan_connect'];
+        Assert::keyExists($stanConnect, 'client_secret');
+
+        /**
+         * @psalm-suppress MixedArrayAccess
+         */
+        return (string) $stanConnect['client_secret'];
     }
 
     public function getScope(): string
@@ -69,6 +93,9 @@ final class StanConfigurationProvider implements StanConfigurationProviderInterf
             /** @var GatewayConfigInterface $gatewayConfig */
             $gatewayConfig = $method->getGatewayConfig();
 
+            /**
+             * @psalm-suppress DeprecatedMethod
+             */
             if ($gatewayConfig->getFactoryName() !== 'stan_pay') {
                 continue;
             }

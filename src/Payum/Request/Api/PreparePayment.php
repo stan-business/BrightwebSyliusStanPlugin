@@ -12,6 +12,9 @@ namespace Brightweb\SyliusStanPlugin\Payum\Request\Api;
 
 use Payum\Core\Request\Generic;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 class PreparePayment extends Generic
 {
 }

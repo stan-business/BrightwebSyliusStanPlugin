@@ -39,6 +39,7 @@ class GetPaymentAction implements ActionInterface, ApiAwareInterface
 
         /**
          * @phpstan-ignore-next-line assertSupports called
+         * @psalm-suppress MixedMethodCall
          */
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
@@ -49,6 +50,7 @@ class GetPaymentAction implements ActionInterface, ApiAwareInterface
         /**
          * @var Payment $payment
          * @phpstan-ignore-next-line assertSupports called
+         * @psalm-suppress MixedMethodCall
          */
         $payment = $this->api->getPayment($details['stan_payment_id']);
 

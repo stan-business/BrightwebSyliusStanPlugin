@@ -11,7 +11,7 @@ declare(strict_types=1);
 namespace Brightweb\SyliusStanPlugin\Resolver;
 
 use Payum\Core\Bridge\Spl\ArrayObject;
-use Sylius\Component\Payment\Model\PaymentInterface as BasePaymentInterface;
+use Sylius\Component\Payment\Model\PaymentInterface;
 use Sylius\Component\Core\Model\PaymentMethodInterface;
 use Sylius\Component\Payment\Resolver\PaymentMethodsResolverInterface;
 
@@ -24,7 +24,7 @@ final class DisplayStanPaymentMethodResolver implements PaymentMethodsResolverIn
         $this->decoratedPaymentMethodsResolver = $decoratedPaymentMethodsResolver;
     }
 
-    public function getSupportedMethods(BasePaymentInterface $subject): array
+    public function getSupportedMethods(PaymentInterface $subject): array
     {
         $supportedMethods = $this->decoratedPaymentMethodsResolver->getSupportedMethods($subject);
 
@@ -38,7 +38,6 @@ final class DisplayStanPaymentMethodResolver implements PaymentMethodsResolverIn
                 if ($method instanceof PaymentMethodInterface) {
                     $config = $method->getGatewayConfig();
                     if ($config !== null) {
-                        /** @var array $gatewayConfig */
                         $gatewayConfig = $config->getConfig();
                         if (isset($gatewayConfig['only_for_stanner'])) {;
                             if (true === (bool) $gatewayConfig['only_for_stanner'] && !$isStanner) {
@@ -56,6 +55,7 @@ final class DisplayStanPaymentMethodResolver implements PaymentMethodsResolverIn
                 /**
                  * @param PaymentMethodInterface[] $supportedMethods
                  * @phpstan-ignore-next-line it returns int (-1, 1 or 0)
+                 * @psalm-suppress ArgumentTypeCoercion
                  */
                 usort($supportedMethods, function (PaymentMethodInterface $a, PaymentMethodInterface $b) use ($stanPayCode): int {
                     if ($a->getCode() === $stanPayCode) {
@@ -74,7 +74,7 @@ final class DisplayStanPaymentMethodResolver implements PaymentMethodsResolverIn
         return $supportedMethods;
     }
 
-    public function supports(BasePaymentInterface $subject): bool
+    public function supports(PaymentInterface $subject): bool
     {
         return $this->decoratedPaymentMethodsResolver->supports($subject);
     }

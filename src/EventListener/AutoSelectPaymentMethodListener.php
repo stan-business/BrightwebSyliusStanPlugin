@@ -29,7 +29,9 @@ class AutoSelectPaymentMethodListener
     // Selects Stan Pay by default if user is browsing the website using Stan
     public function onInitializePayment(ResourceControllerEvent $event): void
     {
-        if (isset($_SERVER['HTTP_USER_AGENT']) && $this->checkIfStanner($_SERVER['HTTP_USER_AGENT'])) {
+        /** @var string $userAgent */
+        $userAgent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : '';
+        if ($this->checkIfStanner($userAgent)) {
             $order = $event->getSubject();
 
             if (!$order instanceof OrderInterface) {

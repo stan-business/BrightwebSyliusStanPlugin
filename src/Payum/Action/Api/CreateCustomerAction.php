@@ -42,21 +42,23 @@ class CreateCustomerAction implements ActionInterface, ApiAwareInterface
             return;
         }
 
-        /** @var array $options */
         $options = $this->api->options;
 
         if (true === (bool) $options['only_for_stanner']) {
             return;
         }
 
-        /** @var ArrayObject $details
-         * @phpstan-ignore-next-line assertSupports called
+        /**
+         * assertSupports called
+         * @phpstan-ignore-next-line
+         * @psalm-suppress MixedMethodCall
          */
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
         $customerBody = new CustomerRequestBody();
 
         $customerAddress = new Address();
+        /** @psalm-suppress MixedArgument */
         $customerAddress = $customerAddress
             ->setFirstname(strval($details['customer_firstname']))
             ->setLastname(strval($details['customer_lastname']))
@@ -67,13 +69,13 @@ class CreateCustomerAction implements ActionInterface, ApiAwareInterface
             ->setCountry(strval($details['customer_country_code']))
         ;
 
+        /** @psalm-suppress MixedArgument */
         $customerBody = $customerBody
             ->setEmail(strval($details['customer_email']))
             ->setName(strval($details['customer_fullname']))
             ->setAddress($customerAddress)
         ;
 
-        /** @var Customer $createdCustomer */
         $createdCustomer = $this->api->createCustomer($customerBody);
 
         $details->replace([

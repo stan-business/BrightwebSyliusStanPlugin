@@ -21,6 +21,7 @@ use Payum\Core\Request\Notify;
 
 /**
  * Handles /payment/notify/unsafe/stan_pay?state={token_hash}
+ * @psalm-suppress PropertyNotSetInConstructor
  */
 class NotifyNullAction implements ActionInterface, GatewayAwareInterface
 {

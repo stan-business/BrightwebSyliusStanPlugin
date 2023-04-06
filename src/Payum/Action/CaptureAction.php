@@ -40,6 +40,8 @@ class CaptureAction implements ActionInterface, GatewayAwareInterface, GenericTo
 
         /**
          * @phpstan-ignore-next-line assertSupports called
+         * @psalm-suppress MixedAssignment
+         * @psalm-suppress MixedMethodCall
          */
         $model = $request->getModel();
         $details = ArrayObject::ensureArrayObject($model);
@@ -47,6 +49,7 @@ class CaptureAction implements ActionInterface, GatewayAwareInterface, GenericTo
         /**
          * @var OrderInterface $order
          * @phpstan-ignore-next-line assertSupports called
+         * @psalm-suppress MixedMethodCall
          */
         $order = $request->getFirstModel()->getOrder();
 
@@ -55,6 +58,7 @@ class CaptureAction implements ActionInterface, GatewayAwareInterface, GenericTo
             /**
              * @var TokenInterface $token
              * @phpstan-ignore-next-line assertSupports called
+             * @psalm-suppress MixedMethodCall
              */
             $token = $request->getToken();
 

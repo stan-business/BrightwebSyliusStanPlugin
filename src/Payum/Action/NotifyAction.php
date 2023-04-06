@@ -34,6 +34,7 @@ class NotifyAction implements ActionInterface, GatewayAwareInterface
 
         /**
          * @phpstan-ignore-next-line assertSupports called
+         * @psalm-suppress MixedMethodCall
          */
         $this->gateway->execute(new Sync($request->getModel()));
 

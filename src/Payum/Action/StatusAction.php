@@ -29,12 +29,17 @@ class StatusAction implements ActionInterface
 
         /**
          * @phpstan-ignore-next-line assertSupports called
+         * @psalm-suppress MixedMethodCall
          */
         $details = ArrayObject::ensureArrayObject($request->getModel());
 
+        /**
+         * @psalm-suppress MixedMethodCall
+         */
         if (!isset($details['stan_payment_id'])) {
             /**
              * @phpstan-ignore-next-line assertSupports called
+             * @psalm-suppress MixedMethodCall
              */
             $request->markNew();
 
@@ -44,6 +49,7 @@ class StatusAction implements ActionInterface
         if (!isset($details['stan_payment_status'])) {
             /**
              * @phpstan-ignore-next-line assertSupports called
+             * @psalm-suppress MixedMethodCall
              */
             $request->markNew();
 
@@ -55,6 +61,7 @@ class StatusAction implements ActionInterface
             case Payment::PAYMENT_STATUS_EXPIRED:
                 /**
                  * @phpstan-ignore-next-line assertSupports called
+                 * @psalm-suppress MixedMethodCall
                  */
                 $request->markFailed();
 
@@ -62,12 +69,14 @@ class StatusAction implements ActionInterface
             case Payment::PAYMENT_STATUS_PREPARED:
                 /**
                  * @phpstan-ignore-next-line assertSupports called
+                 * @psalm-suppress MixedMethodCall
                  */
                 $request->markNew();
                 break;
             case Payment::PAYMENT_STATUS_CANCELLED:
                 /**
                  * @phpstan-ignore-next-line assertSupports called
+                 * @psalm-suppress MixedMethodCall
                  */
                 $request->markCanceled();
 
@@ -76,6 +85,7 @@ class StatusAction implements ActionInterface
             case Payment::PAYMENT_STATUS_HOLDING:
                 /**
                  * @phpstan-ignore-next-line assertSupports called
+                 * @psalm-suppress MixedMethodCall
                  */
                 $request->markPending();
 
@@ -83,6 +93,7 @@ class StatusAction implements ActionInterface
             case Payment::PAYMENT_STATUS_SUCCESS:
                 /**
                  * @phpstan-ignore-next-line assertSupports called
+                 * @psalm-suppress MixedMethodCall
                  */
                 $request->markCaptured();
 
@@ -90,6 +101,7 @@ class StatusAction implements ActionInterface
             default:
                 /**
                  * @phpstan-ignore-next-line assertSupports called
+                 * @psalm-suppress MixedMethodCall
                  */
                 $request->markUnknown();
 
